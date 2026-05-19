@@ -13,6 +13,7 @@
             font-family: 'Outfit', sans-serif;
             background-color: #0f172a;
             color: #f8fafc;
+            overflow-x: hidden; /* Prevent horizontal scrolling on mobile */
         }
 
         /* Hero Solar Animations & Dynamics */
@@ -205,11 +206,13 @@
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 glass-card border-b-0 py-4">
-        <div class="container mx-auto px-6 flex justify-between items-center">
+        <div class="container mx-auto px-6 flex justify-between items-center relative">
             <a href="#" class="text-2xl font-extrabold tracking-wider flex items-center gap-2">
                 <i class="fa-solid fa-solar-panel text-blue-400"></i>
                 PRIME <span class="text-blue-500">REALTIES</span>
             </a>
+            
+            <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8 text-sm font-semibold text-slate-300">
                 <a href="#about" class="hover:text-blue-400 transition-colors">About Us</a>
                 <a href="#procurement" class="hover:text-blue-400 transition-colors">Procurement</a>
@@ -217,11 +220,25 @@
                 <a href="#calculator" class="hover:text-blue-400 transition-colors">Project Calculator</a>
                 <a href="#contact" class="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-full transition-all">Get in Touch</a>
             </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+            
+            <!-- Mobile Menu Container -->
+            <div id="mobile-menu" class="hidden absolute top-[110%] left-0 w-full bg-slate-900 border-b border-slate-800 shadow-2xl flex-col items-center py-6 space-y-6 md:hidden">
+                <a href="#about" class="text-slate-300 hover:text-blue-400 font-semibold text-lg">About Us</a>
+                <a href="#procurement" class="text-slate-300 hover:text-blue-400 font-semibold text-lg">Procurement</a>
+                <a href="#rd" class="text-slate-300 hover:text-blue-400 font-semibold text-lg">R&D Capabilities</a>
+                <a href="#calculator" class="text-slate-300 hover:text-blue-400 font-semibold text-lg">Project Calculator</a>
+                <a href="#contact" class="px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold transition-all">Get in Touch</a>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="hero-bg min-h-screen flex items-center justify-center pt-20">
+    <header class="hero-bg min-h-screen flex items-center justify-center pt-24 pb-16 md:pt-20 md:pb-0">
         
         <!-- Energy Particles (Enhanced Light Rays) -->
         <div class="photon" style="left: 15%; animation-duration: 2.5s; animation-delay: 0.2s;"></div>
@@ -232,12 +249,12 @@
         <div class="photon" style="left: 85%; animation-duration: 3.2s; animation-delay: 1.2s;"></div>
         <div class="photon" style="left: 50%; animation-duration: 2.6s; animation-delay: 2.5s;"></div>
         
-        <div class="container mx-auto px-6 relative z-10 text-center pb-32">
+        <div class="container mx-auto px-6 relative z-10 text-center pb-20 md:pb-32">
             <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight fade-in-up delay-100">
                 Powering the Future <br />
                 <span class="text-gradient">At Gigawatt Scale</span>
             </h1>
-            <p class="text-xl md:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto font-light fade-in-up delay-300">
+            <p class="text-lg md:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto font-light fade-in-up delay-300">
                 Global solar procurement, rigorous R&D, and expert technical advisory. We source the best tier-1 panels and technologies from anywhere in the world.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in-up delay-500">
@@ -250,7 +267,7 @@
             </div>
         </div>
 
-        <!-- Animated Solar Panels -->
+        <!-- Animated Solar Panels (Hidden on mobile to avoid overflow and clutter) -->
         <div class="solar-grid hidden md:flex">
             <div class="solar-panel"></div>
             <div class="solar-panel"></div>
@@ -261,14 +278,14 @@
     </header>
 
     <!-- Features / Capabilities Section -->
-    <section id="procurement" class="py-24 bg-slate-900 relative">
+    <section id="procurement" class="py-16 md:py-24 bg-slate-900 relative">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">Unmatched <span class="text-blue-500">Capabilities</span></h2>
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Unmatched <span class="text-blue-500">Capabilities</span></h2>
                 <p class="text-slate-400 max-w-2xl mx-auto text-lg">We bridge the gap between global manufacturers and massive energy projects, ensuring maximum efficiency, compliance, and suitability.</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-3 gap-6 md:gap-8">
                 <!-- Card 1 -->
                 <div class="glass-card p-8 rounded-2xl text-center">
                     <div class="w-16 h-16 mx-auto bg-blue-900/50 rounded-full flex items-center justify-center mb-6 border border-blue-500/30">
@@ -300,23 +317,23 @@
     </section>
 
     <!-- NEW SECTION: Core Focus (Interactive Tabs & Diagram) -->
-    <section id="core-focus" class="py-24 bg-[#080d18] relative border-t border-slate-800 overflow-hidden">
+    <section id="core-focus" class="py-16 md:py-24 bg-[#080d18] relative border-t border-slate-800 overflow-hidden">
         <div class="container mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                 
                 <!-- Left Column: Content & Tabs -->
                 <div class="z-10">
                     <p class="text-orange-500 font-bold text-xs tracking-widest uppercase mb-4">Core Focus: GW Tracking Field</p>
                     
                     <!-- Dynamic Content Area -->
-                    <div id="tab-content-container" class="min-h-[220px]">
+                    <div id="tab-content-container" class="min-h-[240px] md:min-h-[220px]">
                         <!-- Tab 1 Content -->
                         <div class="tab-content active" id="content-1">
                             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Sovereign Bifacial Solar Arrays</h2>
-                            <p class="text-slate-400 leading-relaxed mb-8">
+                            <p class="text-slate-400 leading-relaxed mb-6 md:mb-8">
                                 High-yield dual-sided crystalline trackers that capture ground albedo reflection alongside direct sun angles, maximizing energy yield density across utility-scale fields.
                             </p>
-                            <div class="grid grid-cols-2 gap-4 mb-10">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
                                 <div class="border border-slate-700 rounded-xl p-5 bg-[#0b101e]">
                                     <p class="text-xs text-slate-500 uppercase tracking-wider mb-2">Sourcing Benchmark</p>
                                     <p class="text-xl font-bold text-white">24.2% Peak Yield</p>
@@ -331,10 +348,10 @@
                         <!-- Tab 2 Content -->
                         <div class="tab-content" id="content-2">
                             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">High-Voltage Power Stations</h2>
-                            <p class="text-slate-400 leading-relaxed mb-8">
+                            <p class="text-slate-400 leading-relaxed mb-6 md:mb-8">
                                 Centralized inversion and step-up transformer solutions designed to handle multi-gigawatt loads, ensuring grid stability and ultra-low transmission loss over long distances.
                             </p>
-                            <div class="grid grid-cols-2 gap-4 mb-10">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
                                 <div class="border border-slate-700 rounded-xl p-5 bg-[#0b101e]">
                                     <p class="text-xs text-slate-500 uppercase tracking-wider mb-2">Conversion Efficiency</p>
                                     <p class="text-xl font-bold text-white">99.1% Max</p>
@@ -349,10 +366,10 @@
                         <!-- Tab 3 Content -->
                         <div class="tab-content" id="content-3">
                             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Sovereign Logistics Pipelines</h2>
-                            <p class="text-slate-400 leading-relaxed mb-8">
+                            <p class="text-slate-400 leading-relaxed mb-6 md:mb-8">
                                 End-to-end global supply chain management. We secure priority shipping routes and rapid customs clearances for tier-1 solar components, avoiding costly project delays.
                             </p>
-                            <div class="grid grid-cols-2 gap-4 mb-10">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
                                 <div class="border border-slate-700 rounded-xl p-5 bg-[#0b101e]">
                                     <p class="text-xs text-slate-500 uppercase tracking-wider mb-2">Delivery Success Rate</p>
                                     <p class="text-xl font-bold text-white">99.8% On-Time</p>
@@ -367,10 +384,10 @@
                         <!-- Tab 4 Content -->
                         <div class="tab-content" id="content-4">
                             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Estate Integration Blueprint</h2>
-                            <p class="text-slate-400 leading-relaxed mb-8">
+                            <p class="text-slate-400 leading-relaxed mb-6 md:mb-8">
                                 Comprehensive land-use planning that harmonizes massive solar deployments with local ecology, agriculture (agrivoltaics), and community infrastructure.
                             </p>
-                            <div class="grid grid-cols-2 gap-4 mb-10">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
                                 <div class="border border-slate-700 rounded-xl p-5 bg-[#0b101e]">
                                     <p class="text-xs text-slate-500 uppercase tracking-wider mb-2">Land Optimization</p>
                                     <p class="text-xl font-bold text-white">+15% Density</p>
@@ -385,27 +402,27 @@
 
                     <!-- Vertical Tabs -->
                     <div class="flex flex-col gap-3">
-                        <button class="focus-tab w-full text-left px-6 py-4 rounded-xl border transition-all flex items-center gap-4 group border-slate-800 bg-slate-900/40 hover:bg-slate-800/60 hover:border-slate-600 data-[active=true]:border-orange-500 data-[active=true]:bg-[#121826] data-[active=true]:shadow-[0_4px_20px_rgba(245,158,11,0.08)]" data-target="1" data-active="true">
+                        <button class="focus-tab w-full text-left px-5 md:px-6 py-4 rounded-xl border transition-all flex items-center gap-4 group border-slate-800 bg-slate-900/40 hover:bg-slate-800/60 hover:border-slate-600 data-[active=true]:border-orange-500 data-[active=true]:bg-[#121826] data-[active=true]:shadow-[0_4px_20px_rgba(245,158,11,0.08)]" data-target="1" data-active="true">
                             <i class="fa-solid fa-solar-panel text-lg transition-transform group-hover:scale-110 text-slate-500 group-data-[active=true]:text-orange-500"></i>
-                            <span class="font-semibold text-slate-400 group-data-[active=true]:text-white">Sovereign Bifacial Solar Arrays</span>
+                            <span class="font-semibold text-sm md:text-base text-slate-400 group-data-[active=true]:text-white">Sovereign Bifacial Solar Arrays</span>
                         </button>
-                        <button class="focus-tab w-full text-left px-6 py-4 rounded-xl border transition-all flex items-center gap-4 group border-slate-800 bg-slate-900/40 hover:bg-slate-800/60 hover:border-slate-600 data-[active=true]:border-orange-500 data-[active=true]:bg-[#121826] data-[active=true]:shadow-[0_4px_20px_rgba(245,158,11,0.08)]" data-target="2" data-active="false">
+                        <button class="focus-tab w-full text-left px-5 md:px-6 py-4 rounded-xl border transition-all flex items-center gap-4 group border-slate-800 bg-slate-900/40 hover:bg-slate-800/60 hover:border-slate-600 data-[active=true]:border-orange-500 data-[active=true]:bg-[#121826] data-[active=true]:shadow-[0_4px_20px_rgba(245,158,11,0.08)]" data-target="2" data-active="false">
                             <i class="fa-solid fa-bolt text-lg transition-transform group-hover:scale-110 text-slate-500 group-data-[active=true]:text-orange-500"></i>
-                            <span class="font-semibold text-slate-400 group-data-[active=true]:text-white">High-Voltage Power Stations</span>
+                            <span class="font-semibold text-sm md:text-base text-slate-400 group-data-[active=true]:text-white">High-Voltage Power Stations</span>
                         </button>
-                        <button class="focus-tab w-full text-left px-6 py-4 rounded-xl border transition-all flex items-center gap-4 group border-slate-800 bg-slate-900/40 hover:bg-slate-800/60 hover:border-slate-600 data-[active=true]:border-orange-500 data-[active=true]:bg-[#121826] data-[active=true]:shadow-[0_4px_20px_rgba(245,158,11,0.08)]" data-target="3" data-active="false">
+                        <button class="focus-tab w-full text-left px-5 md:px-6 py-4 rounded-xl border transition-all flex items-center gap-4 group border-slate-800 bg-slate-900/40 hover:bg-slate-800/60 hover:border-slate-600 data-[active=true]:border-orange-500 data-[active=true]:bg-[#121826] data-[active=true]:shadow-[0_4px_20px_rgba(245,158,11,0.08)]" data-target="3" data-active="false">
                             <i class="fa-solid fa-ship text-lg transition-transform group-hover:scale-110 text-slate-500 group-data-[active=true]:text-orange-500"></i>
-                            <span class="font-semibold text-slate-400 group-data-[active=true]:text-white">Sovereign Logistics Pipelines</span>
+                            <span class="font-semibold text-sm md:text-base text-slate-400 group-data-[active=true]:text-white">Sovereign Logistics Pipelines</span>
                         </button>
-                        <button class="focus-tab w-full text-left px-6 py-4 rounded-xl border transition-all flex items-center gap-4 group border-slate-800 bg-slate-900/40 hover:bg-slate-800/60 hover:border-slate-600 data-[active=true]:border-orange-500 data-[active=true]:bg-[#121826] data-[active=true]:shadow-[0_4px_20px_rgba(245,158,11,0.08)]" data-target="4" data-active="false">
+                        <button class="focus-tab w-full text-left px-5 md:px-6 py-4 rounded-xl border transition-all flex items-center gap-4 group border-slate-800 bg-slate-900/40 hover:bg-slate-800/60 hover:border-slate-600 data-[active=true]:border-orange-500 data-[active=true]:bg-[#121826] data-[active=true]:shadow-[0_4px_20px_rgba(245,158,11,0.08)]" data-target="4" data-active="false">
                             <i class="fa-solid fa-house-flag text-lg transition-transform group-hover:scale-110 text-slate-500 group-data-[active=true]:text-orange-500"></i>
-                            <span class="font-semibold text-slate-400 group-data-[active=true]:text-white">Estate Integration Blueprint</span>
+                            <span class="font-semibold text-sm md:text-base text-slate-400 group-data-[active=true]:text-white">Estate Integration Blueprint</span>
                         </button>
                     </div>
                 </div>
 
                 <!-- Right Column: Animated Schematic -->
-                <div class="relative w-full aspect-video lg:aspect-square tech-grid-bg rounded-3xl border border-slate-800 shadow-2xl flex items-center justify-center p-8">
+                <div class="relative w-full aspect-video lg:aspect-square tech-grid-bg rounded-3xl border border-slate-800 shadow-2xl flex items-center justify-center p-4 md:p-8 mt-8 lg:mt-0">
                     <!-- SVG Diagram -->
                     <svg viewBox="0 0 600 400" class="w-full h-full drop-shadow-2xl overflow-visible">
                         
@@ -461,10 +478,10 @@
                     </svg>
 
                     <!-- HTML Overlays for Markers -->
-                    <div class="tech-marker absolute top-[38%] left-[24%] w-8 h-8 rounded-full flex items-center justify-center text-sm font-extrabold z-20 transition-all duration-300 data-[active=true]:bg-orange-500 data-[active=true]:text-slate-900 data-[active=true]:pulse-marker data-[active=true]:shadow-lg data-[active=false]:bg-[#0f172a] data-[active=false]:border-2 data-[active=false]:border-orange-500 data-[active=false]:text-orange-500" data-marker-id="1" data-active="true">1</div>
-                    <div class="tech-marker absolute top-[60%] left-[71%] w-8 h-8 rounded-full flex items-center justify-center text-sm font-extrabold z-20 transition-all duration-300 data-[active=true]:bg-orange-500 data-[active=true]:text-slate-900 data-[active=true]:pulse-marker data-[active=true]:shadow-lg data-[active=false]:bg-[#0f172a] data-[active=false]:border-2 data-[active=false]:border-orange-500 data-[active=false]:text-orange-500" data-marker-id="2" data-active="false">2</div>
-                    <div class="tech-marker absolute top-[58%] left-[55%] w-8 h-8 rounded-full flex items-center justify-center text-sm font-extrabold z-20 transition-all duration-300 data-[active=true]:bg-orange-500 data-[active=true]:text-slate-900 data-[active=true]:pulse-marker data-[active=true]:shadow-lg data-[active=false]:bg-[#0f172a] data-[active=false]:border-2 data-[active=false]:border-orange-500 data-[active=false]:text-orange-500" data-marker-id="3" data-active="false">3</div>
-                    <div class="tech-marker absolute top-[28%] left-[68%] w-8 h-8 rounded-full flex items-center justify-center text-sm font-extrabold z-20 transition-all duration-300 data-[active=true]:bg-orange-500 data-[active=true]:text-slate-900 data-[active=true]:pulse-marker data-[active=true]:shadow-lg data-[active=false]:bg-[#0f172a] data-[active=false]:border-2 data-[active=false]:border-orange-500 data-[active=false]:text-orange-500" data-marker-id="4" data-active="false">4</div>
+                    <div class="tech-marker absolute top-[38%] left-[24%] w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-xs md:text-sm font-extrabold z-20 transition-all duration-300 data-[active=true]:bg-orange-500 data-[active=true]:text-slate-900 data-[active=true]:pulse-marker data-[active=true]:shadow-lg data-[active=false]:bg-[#0f172a] data-[active=false]:border-2 data-[active=false]:border-orange-500 data-[active=false]:text-orange-500" data-marker-id="1" data-active="true">1</div>
+                    <div class="tech-marker absolute top-[60%] left-[71%] w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-xs md:text-sm font-extrabold z-20 transition-all duration-300 data-[active=true]:bg-orange-500 data-[active=true]:text-slate-900 data-[active=true]:pulse-marker data-[active=true]:shadow-lg data-[active=false]:bg-[#0f172a] data-[active=false]:border-2 data-[active=false]:border-orange-500 data-[active=false]:text-orange-500" data-marker-id="2" data-active="false">2</div>
+                    <div class="tech-marker absolute top-[58%] left-[55%] w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-xs md:text-sm font-extrabold z-20 transition-all duration-300 data-[active=true]:bg-orange-500 data-[active=true]:text-slate-900 data-[active=true]:pulse-marker data-[active=true]:shadow-lg data-[active=false]:bg-[#0f172a] data-[active=false]:border-2 data-[active=false]:border-orange-500 data-[active=false]:text-orange-500" data-marker-id="3" data-active="false">3</div>
+                    <div class="tech-marker absolute top-[28%] left-[68%] w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-xs md:text-sm font-extrabold z-20 transition-all duration-300 data-[active=true]:bg-orange-500 data-[active=true]:text-slate-900 data-[active=true]:pulse-marker data-[active=true]:shadow-lg data-[active=false]:bg-[#0f172a] data-[active=false]:border-2 data-[active=false]:border-orange-500 data-[active=false]:text-orange-500" data-marker-id="4" data-active="false">4</div>
 
                 </div>
             </div>
@@ -472,11 +489,11 @@
     </section>
 
     <!-- NEW SECTION: R&D Technologies -->
-    <section id="rd" class="py-24 bg-slate-950 relative border-t border-slate-800">
+    <section id="rd" class="py-16 md:py-24 bg-slate-950 relative border-t border-slate-800">
         <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center gap-16">
-                <div class="md:w-1/2">
-                    <h2 class="text-4xl font-bold mb-6">Next-Gen <span class="text-blue-500">R&D Focus</span></h2>
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Next-Gen <span class="text-blue-500">R&D Focus</span></h2>
                     <p class="text-slate-400 text-lg mb-8 leading-relaxed">We don't just procure; we pioneer. Our dedicated R&D division works directly with tier-1 manufacturers to stress-test and implement tomorrow's solar technologies today, ensuring your gigawatt projects achieve maximum efficiency over a 30+ year lifespan.</p>
                     
                     <div class="space-y-6">
@@ -509,7 +526,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="md:w-1/2 relative">
+                <div class="lg:w-1/2 relative w-full">
                     <div class="absolute inset-0 bg-blue-600 blur-[100px] opacity-20 rounded-full"></div>
                     <div class="glass-card p-2 rounded-2xl relative z-10 border border-slate-700">
                         <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Solar R&D Facility" class="rounded-xl w-full h-auto object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-500">
@@ -520,18 +537,18 @@
     </section>
 
     <!-- NEW SECTION: Gigawatt Calculator -->
-    <section id="calculator" class="py-24 bg-[#0B1120] relative">
+    <section id="calculator" class="py-16 md:py-24 bg-[#0B1120] relative">
         <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
              <div class="absolute top-[20%] left-[10%] w-96 h-96 bg-blue-900/20 rounded-full blur-[120px]"></div>
         </div>
         <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">Project <span class="text-blue-500">Estimator</span></h2>
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Project <span class="text-blue-500">Estimator</span></h2>
                 <p class="text-slate-400 max-w-2xl mx-auto text-lg">Calculate rough requirements and yields for utility-scale solar deployments based on current global averages.</p>
             </div>
 
-            <div class="max-w-5xl mx-auto glass-card rounded-3xl p-8 md:p-12 shadow-2xl border border-blue-500/20">
-                <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="max-w-5xl mx-auto glass-card rounded-3xl p-6 md:p-12 shadow-2xl border border-blue-500/20">
+                <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
                     <!-- Inputs -->
                     <div class="space-y-8">
                         <div>
@@ -552,14 +569,10 @@
                                 <option value="2400">MENA / Desert (~2,400 hrs)</option>
                             </select>
                         </div>
-                        
-                        <button type="button" class="w-full py-4 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl border border-slate-600 transition-colors flex justify-center items-center gap-2">
-                            <i class="fa-solid fa-file-pdf text-red-400"></i> Download Full Technical Brief
-                        </button>
                     </div>
 
                     <!-- Outputs -->
-                    <div class="bg-slate-900/80 rounded-2xl p-8 border border-slate-700 shadow-inner grid grid-cols-1 gap-6">
+                    <div class="bg-slate-900/80 rounded-2xl p-6 md:p-8 border border-slate-700 shadow-inner grid grid-cols-1 gap-6">
                         <div class="border-b border-slate-800 pb-4">
                             <p class="text-sm text-slate-400 mb-1">Estimated Panel Requirement</p>
                             <div class="text-3xl font-extrabold text-white flex items-baseline gap-2">
@@ -590,20 +603,20 @@
     </section>
 
     <!-- Gigawatt Scale Banner -->
-    <section class="py-20 relative overflow-hidden bg-blue-900">
+    <section class="py-16 md:py-20 relative overflow-hidden bg-blue-900">
         <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-        <div class="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between">
-            <div class="md:w-1/2 mb-10 md:mb-0">
-                <h2 class="text-4xl md:text-5xl font-extrabold mb-6">Ready for Gigawatt Scale?</h2>
-                <p class="text-xl text-blue-200 mb-8">From initial technical feasibility studies to finalizing global logistics, Prime Realties Ltd is your definitive partner in large-scale solar infrastructure.</p>
+        <div class="container mx-auto px-6 relative z-10 flex flex-col lg:flex-row items-center justify-between">
+            <div class="lg:w-1/2 mb-10 lg:mb-0">
+                <h2 class="text-3xl md:text-5xl font-extrabold mb-6">Ready for Gigawatt Scale?</h2>
+                <p class="text-lg md:text-xl text-blue-200 mb-8">From initial technical feasibility studies to finalizing global logistics, Prime Realties Ltd is your definitive partner in large-scale solar infrastructure.</p>
                 <ul class="space-y-4 font-semibold text-white">
                     <li class="flex items-center gap-3"><i class="fa-solid fa-check-circle text-green-400"></i> Rigorous Quality Assurance</li>
                     <li class="flex items-center gap-3"><i class="fa-solid fa-check-circle text-green-400"></i> Top-Tier ESG Compliance</li>
                     <li class="flex items-center gap-3"><i class="fa-solid fa-check-circle text-green-400"></i> Climate-Specific Optimization</li>
                 </ul>
             </div>
-            <div class="md:w-5/12">
-                <div class="bg-slate-900 p-8 rounded-2xl shadow-2xl border border-blue-500/30">
+            <div class="lg:w-5/12 w-full mt-8 lg:mt-0">
+                <div class="bg-slate-900 p-6 md:p-8 rounded-2xl shadow-2xl border border-blue-500/30">
                     <h3 class="text-2xl font-bold mb-6 text-center">Request an Assessment</h3>
                     <form class="space-y-4">
                         <input type="text" placeholder="Project Name" class="w-full bg-slate-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700">
@@ -653,6 +666,28 @@
     </footer>
 
     <script>
+        // Mobile Menu Toggle Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            }
+        });
+
+        // Close mobile menu when a link is clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            });
+        });
+
         // Calculator Logic
         const capacitySlider = document.getElementById('capacitySlider');
         const capacityInput = document.getElementById('capacityInput');
