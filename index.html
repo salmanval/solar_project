@@ -138,17 +138,66 @@
             100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
         }
 
+        /* Smooth physical tracking axle rotation around 0px 0px */
         .sway-panel {
-            transform-origin: 50% 50%;
-            animation: sway 8s ease-in-out infinite alternate;
+            transform-origin: 0px 0px;
+            animation: tracking-sway 14s ease-in-out infinite alternate;
         }
         
-        .sway-panel-2 { animation-delay: 1s; }
-        .sway-panel-3 { animation-delay: 2s; }
+        .sway-panel-2 { animation-delay: -4s; }
+        .sway-panel-3 { animation-delay: -8s; }
 
-        @keyframes sway {
-            0% { transform: rotate(-5deg); }
-            100% { transform: rotate(15deg); }
+        @keyframes tracking-sway {
+            0% { transform: rotate(-22deg); }
+            50% { transform: rotate(0deg); }
+            100% { transform: rotate(22deg); }
+        }
+
+        /* Vector-space embedded SVG dynamic markers styling */
+        .tech-marker .marker-pulse {
+            fill: none;
+            stroke: #f59e0b;
+            stroke-width: 2;
+            opacity: 0;
+            transform-origin: center;
+        }
+
+        .tech-marker[data-active="true"] .marker-pulse {
+            animation: svgPulse 2s infinite;
+        }
+
+        .tech-marker .marker-bg {
+            transition: all 0.3s ease;
+        }
+
+        .tech-marker[data-active="true"] .marker-bg {
+            fill: #f59e0b;
+            stroke: none;
+        }
+
+        .tech-marker[data-active="false"] .marker-bg {
+            fill: #0f172a;
+            stroke: #f59e0b;
+            stroke-width: 2px;
+        }
+
+        .tech-marker .marker-text {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            transition: all 0.3s ease;
+        }
+
+        .tech-marker[data-active="true"] .marker-text {
+            fill: #0f172a;
+        }
+
+        .tech-marker[data-active="false"] .marker-text {
+            fill: #f59e0b;
+        }
+
+        @keyframes svgPulse {
+            0% { r: 14; opacity: 0.8; }
+            100% { r: 28; opacity: 0; }
         }
 
         /* Tab Transitions */
@@ -318,7 +367,7 @@
         </div>
     </section>
 
-    <!-- NEW SECTION: Core Focus (Interactive Tabs & Diagram) -->
+    <!-- NEW SECTION: Core Focus (Interactive Tabs & Diagram with Improved Animations) -->
     <section id="core-focus" class="py-16 md:py-24 bg-[#080d18] relative border-t border-slate-800 overflow-hidden">
         <div class="container mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -428,11 +477,21 @@
                     <!-- SVG Diagram -->
                     <svg viewBox="0 0 600 400" class="w-full h-full drop-shadow-2xl overflow-visible">
                         
-                        <!-- Connecting Dotted Path (Marching Ants) -->
-                        <path d="M 120 220 Q 200 280 270 240 T 420 270" fill="none" stroke="#10b981" stroke-width="2" class="marching-ants" />
+                        <!-- Connecting Dotted Path (Marching Ants representing Power Flow) -->
+                        <path d="M 120 220 Q 200 280 270 240 T 420 270" fill="none" stroke="#10b981" stroke-width="2.5" class="marching-ants" />
                         
-                        <!-- Base Platform Line -->
+                        <!-- Ground / Base Platform Line -->
                         <line x1="50" y1="300" x2="550" y2="300" stroke="#1e293b" stroke-width="6" stroke-linecap="round" />
+
+                        <!-- Ground Albedo Reflection Rays (Visualizing Bifacial capture striking underside) -->
+                        <g stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round" opacity="0.6" class="marching-ants">
+                            <!-- Ray 1 -->
+                            <line x1="100" y1="300" x2="115" y2="235" stroke-dasharray="4 4" />
+                            <!-- Ray 2 -->
+                            <line x1="200" y1="300" x2="215" y2="252" stroke-dasharray="4 4" />
+                            <!-- Ray 3 -->
+                            <line x1="300" y1="300" x2="315" y2="252" stroke-dasharray="4 4" />
+                        </g>
 
                         <!-- Power Station / Inverter Structure -->
                         <g transform="translate(400, 150)">
@@ -449,42 +508,77 @@
                             </circle>
                         </g>
 
-                        <!-- Solar Panel Modules -->
+                        <!-- Solar Panel Modules (Anchored precisely to pivot joint at local coordinates 0,0) -->
                         <!-- Panel 1 -->
                         <g transform="translate(120, 220)">
-                            <line x1="0" y1="0" x2="0" y2="80" stroke="#10b981" stroke-width="3" />
+                            <!-- Heavy Duty Support Pole -->
+                            <line x1="0" y1="0" x2="0" y2="80" stroke="#334155" stroke-width="4.5" stroke-linecap="round" />
                             <g class="sway-panel">
-                                <rect x="-40" y="-15" width="80" height="15" rx="2" fill="#1e293b" stroke="#10b981" stroke-width="2" />
-                                <rect x="-35" y="-12" width="70" height="9" fill="#10b981" opacity="0.8" />
+                                <!-- Silicon Protective frame -->
+                                <rect x="-44" y="-12" width="88" height="15" rx="3" fill="#1e293b" stroke="#10b981" stroke-width="2" />
+                                <!-- Active Solar Cells (Front-facing TOPCon) -->
+                                <rect x="-38" y="-9" width="76" height="9" fill="#10b981" opacity="0.85" />
+                                <!-- Albedo Collection Active Underside Layer (Bifacial Blue) -->
+                                <line x1="-38" y1="5" x2="38" y2="5" stroke="#38bdf8" stroke-width="2.5" opacity="0.9" />
                             </g>
+                            <!-- Torque Tube / Joint Pin Axle -->
+                            <circle cx="0" cy="0" r="5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5" />
                         </g>
 
                         <!-- Panel 2 -->
                         <g transform="translate(220, 240)">
-                            <line x1="0" y1="0" x2="0" y2="60" stroke="#10b981" stroke-width="3" />
+                            <!-- Heavy Duty Support Pole -->
+                            <line x1="0" y1="0" x2="0" y2="60" stroke="#334155" stroke-width="4.5" stroke-linecap="round" />
                             <g class="sway-panel sway-panel-2">
-                                <rect x="-40" y="-15" width="80" height="15" rx="2" fill="#1e293b" stroke="#10b981" stroke-width="2" />
-                                <rect x="-35" y="-12" width="70" height="9" fill="#10b981" opacity="0.8" />
+                                <rect x="-44" y="-12" width="88" height="15" rx="3" fill="#1e293b" stroke="#10b981" stroke-width="2" />
+                                <rect x="-38" y="-9" width="76" height="9" fill="#10b981" opacity="0.85" />
+                                <line x1="-38" y1="5" x2="38" y2="5" stroke="#38bdf8" stroke-width="2.5" opacity="0.9" />
                             </g>
+                            <circle cx="0" cy="0" r="5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5" />
                         </g>
 
                         <!-- Panel 3 -->
                         <g transform="translate(320, 240)">
-                            <line x1="0" y1="0" x2="0" y2="60" stroke="#10b981" stroke-width="3" />
+                            <!-- Heavy Duty Support Pole -->
+                            <line x1="0" y1="0" x2="0" y2="60" stroke="#334155" stroke-width="4.5" stroke-linecap="round" />
                             <g class="sway-panel sway-panel-3">
-                                <rect x="-40" y="-15" width="80" height="15" rx="2" fill="#1e293b" stroke="#10b981" stroke-width="2" />
-                                <rect x="-35" y="-12" width="70" height="9" fill="#10b981" opacity="0.8" />
+                                <rect x="-44" y="-12" width="88" height="15" rx="3" fill="#1e293b" stroke="#10b981" stroke-width="2" />
+                                <rect x="-38" y="-9" width="76" height="9" fill="#10b981" opacity="0.85" />
+                                <line x1="-38" y1="5" x2="38" y2="5" stroke="#38bdf8" stroke-width="2.5" opacity="0.9" />
                             </g>
+                            <circle cx="0" cy="0" r="5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5" />
+                        </g>
+
+                        <!-- Vector Embedded Interactive Numbering Markers -->
+                        <!-- Marker 1 (Sovereign Bifacial Solar Arrays) - Locked to Panel 1 Axle -->
+                        <g class="tech-marker cursor-pointer" data-marker-id="1" data-active="true" transform="translate(120, 165)">
+                            <circle cx="0" cy="0" r="14" class="marker-pulse" />
+                            <circle cx="0" cy="0" r="14" class="marker-bg" />
+                            <text x="0" y="0" text-anchor="middle" dominant-baseline="central" class="marker-text">1</text>
+                        </g>
+
+                        <!-- Marker 2 (High-Voltage Power Stations) - Locked inside Power Inverter Main Box -->
+                        <g class="tech-marker cursor-pointer" data-marker-id="2" data-active="false" transform="translate(450, 265)">
+                            <circle cx="0" cy="0" r="14" class="marker-pulse" />
+                            <circle cx="0" cy="0" r="14" class="marker-bg" />
+                            <text x="0" y="0" text-anchor="middle" dominant-baseline="central" class="marker-text">2</text>
+                        </g>
+
+                        <!-- Marker 3 (Logistics / Sway Panel 3 Joint) - Aligned perfectly with tracking axle 3 -->
+                        <g class="tech-marker cursor-pointer" data-marker-id="3" data-active="false" transform="translate(320, 185)">
+                            <circle cx="0" cy="0" r="14" class="marker-pulse" />
+                            <circle cx="0" cy="0" r="14" class="marker-bg" />
+                            <text x="0" y="0" text-anchor="middle" dominant-baseline="central" class="marker-text">3</text>
+                        </g>
+
+                        <!-- Marker 4 (Estate Integration) - Plotted inside the wireframe roof outline attic -->
+                        <g class="tech-marker cursor-pointer" data-marker-id="4" data-active="false" transform="translate(460, 180)">
+                            <circle cx="0" cy="0" r="14" class="marker-pulse" />
+                            <circle cx="0" cy="0" r="14" class="marker-bg" />
+                            <text x="0" y="0" text-anchor="middle" dominant-baseline="central" class="marker-text">4</text>
                         </g>
 
                     </svg>
-
-                    <!-- HTML Overlays for Markers -->
-                    <div class="tech-marker absolute top-[38%] left-[24%] w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-xs md:text-sm font-extrabold z-20 transition-all duration-300 data-[active=true]:bg-orange-500 data-[active=true]:text-slate-900 data-[active=true]:pulse-marker data-[active=true]:shadow-lg data-[active=false]:bg-[#0f172a] data-[active=false]:border-2 data-[active=false]:border-orange-500 data-[active=false]:text-orange-500" data-marker-id="1" data-active="true">1</div>
-                    <div class="tech-marker absolute top-[60%] left-[71%] w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-xs md:text-sm font-extrabold z-20 transition-all duration-300 data-[active=true]:bg-orange-500 data-[active=true]:text-slate-900 data-[active=true]:pulse-marker data-[active=true]:shadow-lg data-[active=false]:bg-[#0f172a] data-[active=false]:border-2 data-[active=false]:border-orange-500 data-[active=false]:text-orange-500" data-marker-id="2" data-active="false">2</div>
-                    <div class="tech-marker absolute top-[58%] left-[55%] w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-xs md:text-sm font-extrabold z-20 transition-all duration-300 data-[active=true]:bg-orange-500 data-[active=true]:text-slate-900 data-[active=true]:pulse-marker data-[active=true]:shadow-lg data-[active=false]:bg-[#0f172a] data-[active=false]:border-2 data-[active=false]:border-orange-500 data-[active=false]:text-orange-500" data-marker-id="3" data-active="false">3</div>
-                    <div class="tech-marker absolute top-[28%] left-[68%] w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-xs md:text-sm font-extrabold z-20 transition-all duration-300 data-[active=true]:bg-orange-500 data-[active=true]:text-slate-900 data-[active=true]:pulse-marker data-[active=true]:shadow-lg data-[active=false]:bg-[#0f172a] data-[active=false]:border-2 data-[active=false]:border-orange-500 data-[active=false]:text-orange-500" data-marker-id="4" data-active="false">4</div>
-
                 </div>
             </div>
         </div>
