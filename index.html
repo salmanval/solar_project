@@ -3,1384 +3,739 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prime Realties Solar - GW-Scale Solar Sourcing & Utility Energy Advisory</title>
-    
-    <!-- Tailwind CSS -->
+    <title>Prime Realties Ltd | Global Solar Procurement & R&D</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Alpine.js for interactive state management -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <!-- Chart.js for ROI Visualizations -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Urbanist & Plus Jakarta Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Urbanist:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind Customization -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        display: ['Urbanist', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            deep: '#060A13',
-                            slate: '#0F172A',
-                            emerald: '#10B981',
-                            amber: '#F59E0B',
-                            glow: '#FCD34D'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        .glow-hover:hover {
-            box-shadow: 0 0 25px rgba(245, 158, 11, 0.45);
-            transform: translateY(-2px);
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
         }
-        .emerald-glow {
-            box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
+
+        /* Hero Solar Animations & Dynamics */
+        .hero-bg {
+            background: radial-gradient(circle at 50% 0%, #1e3a8a 0%, #0f172a 70%);
+            overflow: hidden;
+            position: relative;
         }
-        .solar-pulse {
-            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+        /* Floating Energy Particles (High-Tech Light Rays) */
+        .photon {
+            position: absolute;
+            top: -150px;
+            width: 3px;
+            height: 120px;
+            background: linear-gradient(to bottom, transparent, rgba(251, 191, 36, 0.1), #fbbf24);
+            border-radius: 4px;
+            opacity: 0;
+            animation: shootDown linear infinite;
+            z-index: 1;
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
         }
-        @keyframes pulse-ring {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: .5; transform: scale(1.15); }
+
+        @keyframes shootDown {
+            0% { transform: translateY(-50px); opacity: 0; }
+            10% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { transform: translateY(110vh); opacity: 0; }
         }
-        .grid-glow-active {
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+
+        .solar-grid {
+            perspective: 1200px;
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            z-index: 2;
+        }
+
+        .solar-panel {
+            width: 160px;
+            height: 220px;
+            background: linear-gradient(135deg, #1e40af 25%, #1d4ed8 25%, #1d4ed8 50%, #1e40af 50%, #1e40af 75%, #1d4ed8 75%, #1d4ed8 100%);
+            background-size: 24px 24px;
+            border: 4px solid #334155;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(29, 78, 216, 0.5), inset 0 0 20px rgba(0,0,0,0.5);
+            transform-origin: bottom center;
+            animation: trackSun 12s infinite alternate ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Glass Shine Effect */
+        .solar-panel::before {
+            content: '';
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            transform: rotate(45deg);
+            animation: panelShine 6s infinite ease-in-out;
+            z-index: 10;
+        }
+
+        .solar-panel::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .solar-panel:nth-child(1) { animation-delay: 0s; height: 180px; }
+        .solar-panel:nth-child(2) { animation-delay: -2s; height: 240px; }
+        .solar-panel:nth-child(3) { animation-delay: -4s; height: 280px; z-index: 3; }
+        .solar-panel:nth-child(4) { animation-delay: -2s; height: 240px; }
+        .solar-panel:nth-child(5) { animation-delay: 0s; height: 180px; }
+
+        @keyframes trackSun {
+            0% { transform: rotateX(65deg) rotateY(-25deg) translateZ(0px); }
+            50% { transform: rotateX(45deg) rotateY(0deg) translateZ(30px); }
+            100% { transform: rotateX(65deg) rotateY(25deg) translateZ(0px); }
+        }
+
+        @keyframes panelShine {
+            0% { left: -150%; opacity: 0; }
+            20% { opacity: 1; }
+            40% { left: 200%; opacity: 0; }
+            100% { left: 200%; opacity: 0; }
+        }
+
+        /* Core Focus Section Animations */
+        .tech-grid-bg {
+            background-color: #0b101e;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center center;
+        }
+
+        .marching-ants {
+            stroke-dasharray: 8 8;
+            animation: march 1.5s linear infinite;
+        }
+
+        @keyframes march {
+            to { stroke-dashoffset: -16; }
+        }
+
+        .pulse-marker {
+            animation: pulseOrange 2s infinite;
+            transform-origin: center;
+        }
+
+        @keyframes pulseOrange {
+            0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(245, 158, 11, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+        }
+
+        .sway-panel {
+            transform-origin: 50% 50%;
+            animation: sway 8s ease-in-out infinite alternate;
         }
         
-        /* Power Cable flow effect animations */
-        @keyframes dash {
-            to {
-                stroke-dashoffset: -40;
-            }
+        .sway-panel-2 { animation-delay: 1s; }
+        .sway-panel-3 { animation-delay: 2s; }
+
+        @keyframes sway {
+            0% { transform: rotate(-5deg); }
+            100% { transform: rotate(15deg); }
         }
-        .flowing-cable {
-            stroke-dasharray: 8, 4;
-            animation: dash 2s linear infinite;
+
+        /* Tab Transitions */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-out forwards;
         }
-        
-        /* Sun ray heat flow animation */
-        @keyframes sunRay {
-            0% { opacity: 0.3; stroke-width: 1; }
-            50% { opacity: 0.9; stroke-width: 3; }
-            100% { opacity: 0.3; stroke-width: 1; }
-        }
-        .sun-energy {
-            animation: sunRay 1.5s ease-in-out infinite;
+        .tab-content.active {
+            display: block;
         }
         
-        /* Smooth Custom Range Slider Styling */
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: #F59E0B;
-            cursor: pointer;
-            box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
-            transition: transform 0.1s ease-in-out;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
+
+        /* Intro Entrance Animations */
+        .fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        .delay-100 { animation-delay: 100ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-500 { animation-delay: 500ms; }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.5);
+        }
+
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #38bdf8, #3b82f6);
         }
     </style>
 </head>
-<body class="bg-brand-deep text-slate-100 font-sans antialiased overflow-x-hidden" x-data="solarApp()">
+<body class="antialiased selection:bg-blue-500 selection:text-white">
 
-    <!-- NAVIGATION BAR -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-brand-deep/85 backdrop-blur-md border-b border-slate-800/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <div class="flex items-center gap-3">
-                    <div class="relative flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-brand-amber to-brand-emerald">
-                        <i class="fa-solid fa-sun text-white text-xl animate-spin-slow"></i>
-                        <span class="absolute inset-0 rounded-lg bg-brand-amber opacity-35 blur-sm"></span>
-                    </div>
-                    <div>
-                        <span class="font-display text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-brand-amber bg-clip-text text-transparent">PrimeRealties</span>
-                        <span class="text-xs block font-bold tracking-wider text-brand-emerald uppercase">.solar</span>
-                    </div>
-                </div>
-
-                <!-- Desktop Nav Links -->
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="#showcase" class="text-sm font-medium text-slate-300 hover:text-brand-amber transition-colors">Plant Sourcing</a>
-                    <a href="#services" class="text-sm font-medium text-slate-300 hover:text-brand-amber transition-colors">Utility Procurement</a>
-                    <a href="#calculator" class="text-sm font-medium text-slate-300 hover:text-brand-amber transition-colors">GW Yield & Logistics</a>
-                    <a href="#innovations" class="text-sm font-medium text-slate-300 hover:text-brand-amber transition-colors">R&D Hub</a>
-                </div>
-
-                <!-- CTA Button -->
-                <div class="hidden md:flex items-center gap-4">
-                    <a href="#wizard" class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-brand-amber to-amber-500 text-slate-950 font-bold text-sm tracking-wide shadow-lg transition-all glow-hover">
-                        <i class="fa-solid fa-truck-ramp-box mr-2"></i>Procure GW Capacity
-                    </a>
-                </div>
-
-                <!-- Mobile menu button -->
-                <div class="md:hidden">
-                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-slate-400 hover:text-white focus:outline-none">
-                        <i class="fa-solid" :class="mobileMenuOpen ? 'fa-xmark text-2xl' : 'fa-bars text-2xl'"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Menu dropdown -->
-        <div x-show="mobileMenuOpen" x-collapse class="md:hidden bg-brand-deep border-b border-slate-800 px-4 py-4 space-y-3">
-            <a href="#showcase" @click="mobileMenuOpen = false" class="block py-2 text-slate-300 hover:text-brand-amber font-medium">Plant Sourcing</a>
-            <a href="#services" @click="mobileMenuOpen = false" class="block py-2 text-slate-300 hover:text-brand-amber font-medium">Utility Procurement</a>
-            <a href="#calculator" @click="mobileMenuOpen = false" class="block py-2 text-slate-300 hover:text-brand-amber font-medium">GW Yield & Logistics</a>
-            <a href="#innovations" @click="mobileMenuOpen = false" class="block py-2 text-slate-300 hover:text-brand-amber font-medium">R&D Hub</a>
-            <a href="#wizard" @click="mobileMenuOpen = false" class="block w-full text-center px-4 py-3 rounded-lg bg-brand-amber text-slate-950 font-bold tracking-wide">
-                <i class="fa-solid fa-truck-ramp-box mr-2"></i>Procure GW Capacity
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-card border-b-0 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-2xl font-extrabold tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-solar-panel text-blue-400"></i>
+                PRIME <span class="text-blue-500">REALTIES</span>
             </a>
+            <div class="hidden md:flex space-x-8 text-sm font-semibold text-slate-300">
+                <a href="#about" class="hover:text-blue-400 transition-colors">About Us</a>
+                <a href="#procurement" class="hover:text-blue-400 transition-colors">Procurement</a>
+                <a href="#rd" class="hover:text-blue-400 transition-colors">R&D Capabilities</a>
+                <a href="#calculator" class="hover:text-blue-400 transition-colors">Project Calculator</a>
+                <a href="#contact" class="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-full transition-all">Get in Touch</a>
+            </div>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <header class="relative pt-32 pb-24 md:pt-40 md:pb-36 overflow-hidden">
-        <!-- Sun glow backdrop effect -->
-        <div class="absolute -top-40 right-1/4 w-[500px] h-[500px] bg-brand-amber/10 rounded-full blur-[120px] pointer-events-none"></div>
-        <div class="absolute top-1/2 left-0 w-[400px] h-[400px] bg-brand-emerald/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <!-- Left Content -->
-                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-800">
-                        <span class="flex h-2 w-2 relative">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-emerald opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-emerald"></span>
-                        </span>
-                        <span class="text-xs font-semibold text-slate-300 uppercase tracking-widest">Sovereign Energy Infrastructure & EPC Advisory</span>
-                    </div>
-
-                    <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-white">
-                        Global Sourcing & <span class="bg-gradient-to-r from-brand-amber via-yellow-400 to-brand-emerald bg-clip-text text-transparent">GW-Scale Solar Sourcing</span>
-                    </h1>
-
-                    <p class="text-lg text-slate-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                        PrimeRealties Solar is an elite utility procurement partner and global energy supply-chain consultancy. We secure, inspect, and transport high-gigawatt Tier-1 solar equipment pipelines directly from global manufacturing hubs to plant sites, while offering premium solar integration blueprints for luxury estate portfolios as a secondary bespoke craft.
-                    </p>
-
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-                        <a href="#wizard" class="px-8 py-4 rounded-xl bg-gradient-to-r from-brand-amber to-amber-500 text-slate-950 font-bold tracking-wide shadow-xl transition-all glow-hover flex items-center justify-center gap-2">
-                            <span>Sourcing & Allocation Assessment</span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                        <a href="#services" class="px-8 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold transition-all border border-slate-800 flex items-center justify-center gap-2">
-                            <span>Explore Tier-1 Supply Channels</span>
-                        </a>
-                    </div>
-
-                    <!-- Statistics Strip -->
-                    <div class="grid grid-cols-3 gap-4 pt-10 border-t border-slate-800 max-w-lg mx-auto lg:mx-0">
-                        <div>
-                            <p class="text-3xl font-extrabold text-white font-display">8.4 GW+</p>
-                            <p class="text-xs text-slate-400 tracking-wider uppercase mt-1">Utility Capacity Sourced</p>
-                        </div>
-                        <div>
-                            <p class="text-3xl font-extrabold text-white font-display">Tier-1</p>
-                            <p class="text-xs text-slate-400 tracking-wider uppercase mt-1">Direct Factory Portals</p>
-                        </div>
-                        <div>
-                            <p class="text-3xl font-extrabold text-white font-display">48-Hr</p>
-                            <p class="text-xs text-slate-400 tracking-wider uppercase mt-1">Logistical Response</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Feature Graphic (Dynamic Solar Node Canvas) -->
-                <div class="lg:col-span-5 flex justify-center relative">
-                    <div class="relative w-full max-w-md bg-gradient-to-tr from-brand-slate/60 to-slate-900 rounded-3xl p-6 border border-slate-800 shadow-2xl emerald-glow">
-                        <div class="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] opacity-30 rounded-3xl"></div>
-                        
-                        <!-- Main Graphic Content -->
-                        <div class="h-full flex flex-col justify-between relative z-10">
-                            <div class="flex justify-between items-center pb-4 border-b border-slate-850">
-                                <span class="text-xs font-bold text-brand-amber uppercase tracking-wider">
-                                    <i class="fa-solid fa-solar-panel mr-2 animate-pulse"></i>Interactive Array Board
-                                </span>
-                                <span class="px-2 py-0.5 text-[10px] bg-brand-emerald/10 text-brand-emerald rounded font-bold uppercase">
-                                    Click to Toggle Cells
-                                </span>
-                            </div>
-
-                            <!-- Interactive PV Cells -->
-                            <div class="my-6 grid grid-cols-4 gap-3">
-                                <template x-for="(cell, index) in solarGrid" :key="index">
-                                    <button @click="toggleGridCell(index)"
-                                         :class="cell.active ? 'bg-gradient-to-br from-brand-amber to-amber-500 text-slate-950 scale-105 shadow-md shadow-amber-500/30 grid-glow-active' : 'bg-slate-800/50 text-slate-650 border border-slate-700/60 hover:border-slate-500/80'"
-                                         class="aspect-square rounded-xl flex flex-col items-center justify-center transition-all duration-300 focus:outline-none">
-                                        <i class="fa-solid fa-solar-panel text-sm md:text-base"></i>
-                                        <span class="text-[9px] font-bold mt-1" x-text="cell.voltage > 0 ? cell.voltage + 'V' : 'OFF'">0V</span>
-                                    </button>
-                                </template>
-                            </div>
-
-                            <!-- Interactive Live Energy Board -->
-                            <div class="bg-brand-deep/80 rounded-2xl p-4 border border-slate-800/80 space-y-3">
-                                <div class="flex justify-between text-xs font-semibold">
-                                    <span class="text-slate-400">Total Simulated Array DC Power</span>
-                                    <span class="text-brand-amber font-bold font-display" x-text="simulatedPower + ' kW'">0 kW</span>
-                                </div>
-                                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
-                                    <div class="h-full bg-gradient-to-r from-brand-amber to-brand-emerald rounded-full transition-all duration-300" 
-                                         :style="'width: ' + ((simulatedPower / 2900) * 100) + '%'"></div>
-                                </div>
-                                <p class="text-[10px] text-slate-500 text-center italic">Array output scales proportionally as you toggle and commission grid elements.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- Hero Section -->
+    <header class="hero-bg min-h-screen flex items-center justify-center pt-20">
+        
+        <!-- Energy Particles (Enhanced Light Rays) -->
+        <div class="photon" style="left: 15%; animation-duration: 2.5s; animation-delay: 0.2s;"></div>
+        <div class="photon" style="left: 28%; animation-duration: 3s; animation-delay: 1.5s;"></div>
+        <div class="photon" style="left: 42%; animation-duration: 2.2s; animation-delay: 0.5s;"></div>
+        <div class="photon" style="left: 55%; animation-duration: 3.5s; animation-delay: 2.1s;"></div>
+        <div class="photon" style="left: 70%; animation-duration: 2.8s; animation-delay: 0.8s;"></div>
+        <div class="photon" style="left: 85%; animation-duration: 3.2s; animation-delay: 1.2s;"></div>
+        <div class="photon" style="left: 50%; animation-duration: 2.6s; animation-delay: 2.5s;"></div>
+        
+        <div class="container mx-auto px-6 relative z-10 text-center pb-32">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight fade-in-up delay-100">
+                Powering the Future <br />
+                <span class="text-gradient">At Gigawatt Scale</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto font-light fade-in-up delay-300">
+                Global solar procurement, rigorous R&D, and expert technical advisory. We source the best tier-1 panels and technologies from anywhere in the world.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in-up delay-500">
+                <a href="#procurement" class="px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-full font-bold text-lg shadow-[0_0_20px_rgba(37,99,235,0.5)] transition-all transform hover:scale-105 hover:shadow-[0_0_30px_rgba(37,99,235,0.7)]">
+                    Explore Procurement
+                </a>
+                <a href="#rd" class="px-8 py-4 bg-slate-800/80 backdrop-blur-sm hover:bg-slate-700 border border-slate-600 rounded-full font-bold text-lg transition-all transform hover:scale-105 hover:border-blue-400">
+                    View Technical Specs
+                </a>
             </div>
+        </div>
+
+        <!-- Animated Solar Panels -->
+        <div class="solar-grid hidden md:flex">
+            <div class="solar-panel"></div>
+            <div class="solar-panel"></div>
+            <div class="solar-panel"></div>
+            <div class="solar-panel"></div>
+            <div class="solar-panel"></div>
         </div>
     </header>
 
-    <!-- LIVE GLOBAL MARITIME SOURCING STREAM -->
-    <section class="bg-brand-deep/90 border-t border-slate-800/60 py-4 overflow-hidden relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-2 whitespace-nowrap">
-                <span class="flex h-2.5 w-2.5 relative">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
-                </span>
-                <span class="text-xs font-bold text-white uppercase tracking-wider">Foundry Supply & Logistics Stream:</span>
-            </div>
-            <!-- Dynamic Feed Ticker -->
-            <div class="w-full overflow-hidden relative bg-slate-950/40 border border-slate-800/80 rounded-lg p-2.5">
-                <div class="flex items-center gap-6 animate-pulse text-xs text-brand-emerald font-semibold transition-all duration-500">
-                    <i class="fa-solid fa-globe"></i>
-                    <span x-text="activeTickerMessage">Connecting directly to Tier-1 supply chains...</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TRUSTED BRAND STRIP -->
-    <section class="bg-brand-deep border-b border-slate-800/80 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p class="text-center text-xs font-semibold text-slate-500 uppercase tracking-widest mb-6">Securing Supply Pipelines for Global Utilities & Sovereign Energy Funds</p>
-            <div class="flex flex-wrap items-center justify-around gap-8 opacity-65 grayscale hover:grayscale-0 transition-all duration-300">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-industry text-xl text-slate-300"></i>
-                    <span class="font-display font-bold text-lg text-slate-300">PACIFIC POWER</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-network-wired text-xl text-slate-300"></i>
-                    <span class="font-display font-bold text-lg text-slate-300">ATLANTIC SOLAR GRID</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-globe text-xl text-slate-300"></i>
-                    <span class="font-display font-bold text-lg text-slate-300">HELIOS UTILITIES</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-bolt text-xl text-slate-300"></i>
-                    <span class="font-display font-bold text-lg text-slate-300">NEXUS RENEWABLES</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- INTERACTIVE SOLAR INTEGRATION SHOWCASE -->
-    <section id="showcase" class="py-24 bg-slate-900/40 relative">
-        <div class="absolute inset-0 bg-radial-gradient from-slate-800/30 to-transparent pointer-events-none"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            
-            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                <span class="text-sm font-bold text-brand-emerald uppercase tracking-widest">Global Sourcing & Hardware Standards</span>
-                <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-                    High-Yield Sourcing Infrastructure
-                </h2>
-                <p class="text-slate-400">
-                    We secure Tier-1 photovoltaic technology allocations directly from global foundry production runs. Take an interactive look at the utility systems we source—and the bespoke luxury housing systems we co-design.
-                </p>
+    <!-- Features / Capabilities Section -->
+    <section id="procurement" class="py-24 bg-slate-900 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Unmatched <span class="text-blue-500">Capabilities</span></h2>
+                <p class="text-slate-400 max-w-2xl mx-auto text-lg">We bridge the gap between global manufacturers and massive energy projects, ensuring maximum efficiency, compliance, and suitability.</p>
             </div>
 
-            <!-- Showcase Grid: Side Selector & Building Explorer -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <!-- Left Details / Tech Spec Card -->
-                <div class="lg:col-span-5 space-y-6">
-                    <div class="space-y-3">
-                        <span class="text-xs font-semibold text-brand-amber uppercase tracking-wider" x-text="'Core Focus: ' + showcaseFeatures[activeFeature].tag">Utility Tracking Systems</span>
-                        <h3 class="text-2xl font-bold text-white font-display" x-text="showcaseFeatures[activeFeature].title">Utility tracker arrays</h3>
-                        <p class="text-slate-400 leading-relaxed" x-text="showcaseFeatures[activeFeature].desc">
-                            High-density dual-axis tracking arrays designed to optimize bifacial panel gains across multi-gigawatt installations.
-                        </p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-card p-8 rounded-2xl text-center">
+                    <div class="w-16 h-16 mx-auto bg-blue-900/50 rounded-full flex items-center justify-center mb-6 border border-blue-500/30">
+                        <i class="fa-solid fa-globe text-2xl text-blue-400"></i>
                     </div>
-
-                    <!-- Interactive Micro-Stats -->
-                    <div class="grid grid-cols-2 gap-4 py-6 border-y border-slate-800">
-                        <div class="bg-brand-deep/50 p-4 rounded-xl border border-slate-850">
-                            <span class="text-xs text-slate-500 block uppercase font-medium">Sourcing Benchmark</span>
-                            <span class="text-lg font-bold text-white font-display" x-text="showcaseFeatures[activeFeature].efficiency">24.2%</span>
-                        </div>
-                        <div class="bg-brand-deep/50 p-4 rounded-xl border border-slate-850">
-                            <span class="text-xs text-slate-500 block uppercase font-medium">Production Output</span>
-                            <span class="text-lg font-bold text-brand-emerald font-display" x-text="showcaseFeatures[activeFeature].impact">3.2 GW Managed</span>
-                        </div>
-                    </div>
-
-                    <!-- Toggle Hotspots List (Manual navigation) -->
-                    <div class="space-y-2">
-                        <template x-for="(feat, index) in showcaseFeatures" :key="index">
-                            <button @click="activeFeature = index" 
-                                    :class="activeFeature === index ? 'bg-gradient-to-r from-brand-amber/10 to-brand-emerald/10 border-brand-amber text-white' : 'border-slate-850 hover:border-slate-700 text-slate-400'"
-                                    class="w-full text-left p-3.5 rounded-xl border transition-all flex items-center justify-between group">
-                                <span class="font-semibold text-sm flex items-center gap-3">
-                                    <i class="fa-solid text-brand-amber" :class="feat.icon"></i>
-                                    <span x-text="feat.title">Feature Title</span>
-                                </span>
-                                <i class="fa-solid fa-chevron-right text-xs opacity-0 group-hover:opacity-100 transition-all"></i>
-                            </button>
-                        </template>
-                    </div>
+                    <h3 class="text-xl font-bold mb-3">Global Procurement</h3>
+                    <p class="text-slate-400">Access to tier-1 suppliers worldwide. We procure the highest yield solar panels tailored to meet gigawatt-project demands, mitigating supply chain risks.</p>
                 </div>
-
-                <!-- Right Interactive Architectural Vector Render -->
-                <div class="lg:col-span-7 flex justify-center relative bg-brand-deep/50 p-8 rounded-3xl border border-slate-800/60 shadow-inner">
-                    <!-- Dynamic Building Vector illustration with SVG & Hotspots -->
-                    <div class="relative w-full max-w-lg aspect-[4/3] flex items-center justify-center">
-                        <svg viewBox="0 0 800 600" class="w-full h-full text-slate-700" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Background Grid -->
-                            <defs>
-                                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#0F172A" stroke-width="1"/>
-                                </pattern>
-                            </defs>
-                            <rect width="100%" height="100%" fill="url(#grid)" />
-
-                            <!-- Ground / Platform -->
-                            <rect x="50" y="520" width="700" height="15" rx="5" fill="#0F172A" opacity="0.6"/>
-                            
-                            <!-- SECONDARY FOCUS: Luxury Villa Outline, faded, representing secondary nature -->
-                            <rect x="420" y="240" width="260" height="260" rx="4" fill="#060A13" stroke="#1E293B" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.4"/>
-                            <polygon points="380,240 720,240 660,160 440,160" fill="#0B0F19" stroke="#334155" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.4"/>
-
-                            <!-- Dynamic Sun Energy Rays falling down when Hotspot 1 (Trackers) is active -->
-                            <g :class="activeFeature === 0 ? 'opacity-100' : 'opacity-20'" class="transition-opacity duration-500">
-                                <line x1="160" y1="100" x2="160" y2="300" stroke="#F59E0B" stroke-dasharray="4 4" class="sun-energy" />
-                                <line x1="300" y1="100" x2="300" y2="320" stroke="#F59E0B" stroke-dasharray="4 4" class="sun-energy" />
-                                <line x1="440" y1="100" x2="440" y2="340" stroke="#F59E0B" stroke-dasharray="4 4" class="sun-energy" />
-                            </g>
-
-                            <!-- PRIMARY FOCUS: High-Gigawatt Solar Plant Arrays in Foreground -->
-                            <!-- Array Tracker Support Struts -->
-                            <line x1="160" y1="360" x2="160" y2="520" :stroke="activeFeature === 0 ? '#10b981' : '#1e293b'" stroke-width="4" class="transition-colors duration-300"/>
-                            <line x1="300" y1="380" x2="300" y2="520" :stroke="activeFeature === 0 ? '#10b981' : '#1e293b'" stroke-width="4" class="transition-colors duration-300"/>
-                            <line x1="440" y1="400" x2="440" y2="520" :stroke="activeFeature === 0 ? '#10b981' : '#1e293b'" stroke-width="4" class="transition-colors duration-300"/>
-
-                            <!-- Angled Double-Glass Bifacial Solar Panels -->
-                            <polygon points="100,380 220,320 230,340 110,400" :fill="activeFeature === 0 ? '#10b981' : '#060A13'" :stroke="activeFeature === 0 ? '#fff' : '#1E293B'" stroke-width="3" class="transition-all duration-300"/>
-                            <polygon points="240,400 360,340 370,360 250,420" :fill="activeFeature === 0 ? '#10b981' : '#060A13'" :stroke="activeFeature === 0 ? '#fff' : '#1E293B'" stroke-width="3" class="transition-all duration-300"/>
-                            <polygon points="380,420 500,360 510,380 390,440" :fill="activeFeature === 0 ? '#10b981' : '#060A13'" :stroke="activeFeature === 0 ? '#fff' : '#1E293B'" stroke-width="3" class="transition-all duration-300"/>
-
-                            <rect x="540" y="380" width="160" height="140" rx="6" :fill="activeFeature === 1 ? '#0F172A' : '#060A13'" :stroke="activeFeature === 1 ? '#F59E0B' : '#0F172A'" stroke-width="3" class="transition-all duration-300"/>
-                            <rect x="560" y="410" width="50" height="80" rx="3" fill="#060A13" stroke="#1E293B" stroke-width="1.5"/>
-                            <rect x="625" y="410" width="50" height="80" rx="3" fill="#060A13" :stroke="activeFeature === 1 ? '#F59E0B' : '#10B981'" stroke-width="1.5" class="transition-colors duration-300"/>
-                            <circle cx="650" cy="450" r="10" :fill="activeFeature === 1 ? '#F59E0B' : '#10b981'" opacity="0.8" class="animate-pulse"/>
-
-                            <!-- Connecting High Voltage Grid Lines - Flow animation lights up when dynamic elements are selected -->
-                            <path d="M 160 360 Q 230 400 300 380 T 440 400 T 540 410" fill="none" :stroke="activeFeature === 2 ? '#F59E0B' : '#10B981'" stroke-width="2" class="flowing-cable"/>
-                            
-                            <!-- Grid transmission lines pushing power to the utility grid -->
-                            <path d="M 620 380 L 680 180" fill="none" :stroke="activeFeature === 2 ? '#F59E0B' : '#1e293b'" stroke-width="3" :class="activeFeature === 2 ? 'flowing-cable' : ''"/>
-                        </svg>
-
-                        <!-- Hotspot Points -->
-                        <!-- Hotspot 1: Active Bifacial Panel Arrays -->
-                        <div class="absolute top-[52%] left-[22%] -translate-x-1/2 -translate-y-1/2">
-                            <button @click="activeFeature = 0" class="relative group flex items-center justify-center" aria-label="Toggle Hotspot 1">
-                                <span class="absolute inline-flex h-10 w-10 rounded-full bg-brand-amber/30 animate-ping"></span>
-                                <span :class="activeFeature === 0 ? 'bg-brand-amber border-slate-900 text-slate-950 scale-125' : 'bg-slate-900 border-brand-amber text-brand-amber hover:bg-brand-amber hover:text-slate-950'" 
-                                      class="relative rounded-full h-8 w-8 border-2 flex items-center justify-center font-bold text-xs transition-all duration-300">
-                                    1
-                                </span>
-                            </button>
-                        </div>
-
-                        <!-- Hotspot 2: Active Central Power Inverter & Transformer Nodes -->
-                        <div class="absolute top-[70%] left-[78%] -translate-x-1/2 -translate-y-1/2">
-                            <button @click="activeFeature = 1" class="relative group flex items-center justify-center" aria-label="Toggle Hotspot 2">
-                                <span class="absolute inline-flex h-10 w-10 rounded-full bg-brand-amber/30 animate-ping"></span>
-                                <span :class="activeFeature === 1 ? 'bg-brand-amber border-slate-900 text-slate-950 scale-125' : 'bg-slate-900 border-brand-amber text-brand-amber hover:bg-brand-amber hover:text-slate-950'" 
-                                      class="relative rounded-full h-8 w-8 border-2 flex items-center justify-center font-bold text-xs transition-all duration-300">
-                                    2
-                                </span>
-                            </button>
-                        </div>
-
-                        <!-- Hotspot 3: High Voltage Sovereign Grid Connections -->
-                        <div class="absolute top-[65%] left-[55%] -translate-x-1/2 -translate-y-1/2">
-                            <button @click="activeFeature = 2" class="relative group flex items-center justify-center" aria-label="Toggle Hotspot 3">
-                                <span class="absolute inline-flex h-10 w-10 rounded-full bg-brand-amber/30 animate-ping"></span>
-                                <span :class="activeFeature === 2 ? 'bg-brand-amber border-slate-900 text-slate-950 scale-125' : 'bg-slate-900 border-brand-amber text-brand-amber hover:bg-brand-amber hover:text-slate-950'" 
-                                      class="relative rounded-full h-8 w-8 border-2 flex items-center justify-center font-bold text-xs transition-all duration-300">
-                                    3
-                                </span>
-                            </button>
-                        </div>
-
-                        <!-- Hotspot 4: Secondary Luxury Estate Integrated Photovoltaics -->
-                        <div class="absolute top-[34%] left-[68%] -translate-x-1/2 -translate-y-1/2">
-                            <button @click="activeFeature = 3" class="relative group flex items-center justify-center" aria-label="Toggle Hotspot 4">
-                                <span class="absolute inline-flex h-10 w-10 rounded-full bg-brand-amber/30 animate-ping"></span>
-                                <span :class="activeFeature === 3 ? 'bg-brand-amber border-slate-900 text-slate-950 scale-125' : 'bg-slate-900 border-brand-amber text-brand-amber hover:bg-brand-amber hover:text-slate-950'" 
-                                      class="relative rounded-full h-8 w-8 border-2 flex items-center justify-center font-bold text-xs transition-all duration-300">
-                                    4
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- SERVICES SECTION -->
-    <section id="services" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
-            <span class="text-sm font-bold text-brand-amber uppercase tracking-widest">Global Advisory & Supply Channels</span>
-            <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-                High-Gigawatt Global Sourcing Pipelines
-            </h2>
-            <p class="text-slate-400">
-                Direct procurement frameworks optimized to eliminate broker margin leakages, securing high-performance solar assets with priority manufacturer allocations.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Service 1 (Primary Utility GW Procurement) -->
-            <div class="bg-gradient-to-br from-brand-slate to-slate-950 p-8 rounded-2xl border-2 border-brand-amber/50 transition-all hover:border-brand-amber hover:-translate-y-1 shadow-lg group relative overflow-hidden">
-                <span class="absolute top-4 right-4 bg-brand-amber/10 text-brand-amber text-[10px] font-extrabold tracking-wider uppercase px-2 py-0.5 rounded">Core Capability</span>
-                <div class="w-12 h-12 rounded-xl bg-brand-amber/10 text-brand-amber flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-truck-ramp-box text-2xl"></i>
-                </div>
-                <h4 class="text-xl font-bold text-white mb-3">GW-Scale Sourcing</h4>
-                <p class="text-sm text-slate-400 leading-relaxed">
-                    Direct Tier-1 manufacturer sourcing contracts for PV modules, tracking mechanics, and massive plant inverters. We manage end-to-end allocation pipelines straight from foundries.
-                </p>
-            </div>
-
-            <!-- Service 2 -->
-            <div class="bg-gradient-to-br from-brand-slate to-slate-955 p-8 rounded-2xl border border-slate-800 transition-all hover:border-slate-700 hover:-translate-y-1 shadow-lg group">
-                <div class="w-12 h-12 rounded-xl bg-brand-emerald/10 text-brand-emerald flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-file-signature text-2xl"></i>
-                </div>
-                <h4 class="text-xl font-bold text-white mb-3">PPA & Offtake Negotiation</h4>
-                <p class="text-sm text-slate-400 leading-relaxed">
-                    Expert design and structuring of long-term Power Purchase Agreements (PPAs) and grid interconnection agreements, ensuring bulletproof commercial cash returns.
-                </p>
-            </div>
-
-            <!-- Service 3 -->
-            <div class="bg-gradient-to-br from-brand-slate to-slate-955 p-8 rounded-2xl border border-slate-800 transition-all hover:border-slate-700 hover:-translate-y-1 shadow-lg group">
-                <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-bolt text-2xl"></i>
-                </div>
-                <h4 class="text-xl font-bold text-white mb-3">Grid-Scale Engineering</h4>
-                <p class="text-sm text-slate-400 leading-relaxed">
-                    High-voltage grid connection modeling and plant substations co-design, ensuring seamless power routing and minimal transmission losses.
-                </p>
-            </div>
-
-            <!-- Service 4 -->
-            <div class="bg-gradient-to-br from-brand-slate to-slate-955 p-8 rounded-2xl border border-slate-800 transition-all hover:border-slate-700 hover:-translate-y-1 shadow-lg group">
-                <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-list-check text-2xl"></i>
-                </div>
-                <h4 class="text-xl font-bold text-white mb-3">Supply Chain Risk Audits</h4>
-                <p class="text-sm text-slate-400 leading-relaxed">
-                    Rigorous factory audits, quality assurance inspections, and maritime freight tracking to de-risk high-volume hardware deliveries.
-                </p>
-            </div>
-
-            <!-- Service 5 (Secondary - Residential Portfolio Co-Design) -->
-            <div class="bg-gradient-to-br from-brand-slate to-slate-955 p-8 rounded-2xl border border-slate-800 transition-all hover:border-slate-700 hover:-translate-y-1 shadow-lg group">
-                <div class="w-12 h-12 rounded-xl bg-pink-500/10 text-pink-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-home text-2xl"></i>
-                </div>
-                <h4 class="text-xl font-bold text-white mb-3">Sovereign Estate Sourcing <span class="text-xs text-pink-400 block mt-1 font-semibold uppercase font-sans">Secondary craft</span></h4>
-                <p class="text-sm text-slate-400 leading-relaxed">
-                    Bespoke high-end building integration designs (BIPV) for luxury residential properties, transforming aesthetic facades into highly productive mini-powerplants.
-                </p>
-            </div>
-
-            <!-- Service 6 -->
-            <div class="bg-gradient-to-br from-brand-slate to-slate-955 p-8 rounded-2xl border border-slate-800 transition-all hover:border-slate-700 hover:-translate-y-1 shadow-lg group">
-                <div class="w-12 h-12 rounded-xl bg-brand-emerald/10 text-brand-emerald flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-shield-halved text-2xl"></i>
-                </div>
-                <h4 class="text-xl font-bold text-white mb-3">Performance Monitoring</h4>
-                <p class="text-sm text-slate-400 leading-relaxed">
-                    Advanced thermal drone scanning and sensor telemetry integration to catch degradation issues early and maintain peak linear plant performance.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- INTERACTIVE SOLAR ROI, FREIGHT & IMPACT CALCULATOR -->
-    <section id="calculator" class="py-24 bg-gradient-to-b from-brand-deep via-slate-900/40 to-brand-deep border-y border-slate-800/60">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                <span class="text-sm font-bold text-brand-emerald uppercase tracking-widest">Financial & Logistics Intelligence</span>
-                <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-                    Evaluate GW Sourcing, Freight & Yields
-                </h2>
-                <p class="text-slate-400">
-                    Sourcing directly from Tier-1 foundries radically alters capital budgets. Input your target capacity, hardware quality, and maritime transit lanes to evaluate dynamic feasibility.
-                </p>
-            </div>
-
-            <!-- Interactive App Workspace -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start" x-init="calculateROI()">
-                <!-- Calculator Controls -->
-                <div class="lg:col-span-5 bg-slate-900 p-8 rounded-3xl border border-slate-800/80 space-y-6">
-                    <h3 class="text-lg font-bold text-white tracking-wide border-b border-slate-800 pb-4">
-                        <i class="fa-solid fa-sliders text-brand-amber mr-2"></i>Parameters & Logistics
-                    </h3>
-
-                    <!-- Sliders -->
-                    <div class="space-y-4">
-                        
-                        <!-- Property Type Selector -->
-                        <div class="space-y-2">
-                            <label class="block text-sm font-semibold text-slate-300">Project Category</label>
-                            <div class="grid grid-cols-3 gap-2">
-                                <button @click="calc.type = 'utility'; calculateROI()" 
-                                        :class="calc.type === 'utility' ? 'bg-brand-emerald text-slate-950 font-bold border-transparent' : 'bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700'"
-                                        class="py-2 px-1 rounded-xl border text-[11px] sm:text-xs transition-all font-semibold text-center">
-                                    GW Solar Plant
-                                </button>
-                                <button @click="calc.type = 'commercial'; calculateROI()" 
-                                        :class="calc.type === 'commercial' ? 'bg-brand-emerald text-slate-950 font-bold border-transparent' : 'bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700'"
-                                        class="py-2 px-1 rounded-xl border text-[11px] sm:text-xs transition-all font-semibold text-center">
-                                    Commercial Hub
-                                </button>
-                                <button @click="calc.type = 'residential'; calculateROI()" 
-                                        :class="calc.type === 'residential' ? 'bg-brand-emerald text-slate-950 font-bold border-transparent' : 'bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700'"
-                                        class="py-2 px-1 rounded-xl border text-[11px] sm:text-xs transition-all font-semibold text-center">
-                                    Luxury Estate
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Property Area Slider (Conditional based on Type) -->
-                        <div class="space-y-2">
-                            <div class="flex justify-between text-sm font-semibold">
-                                <span class="text-slate-300" x-text="calc.type === 'utility' ? 'Plant Sourcing Scale' : 'Target Rooftop Area'">Plant Sourcing Scale</span>
-                                <span class="text-brand-amber font-display font-bold" x-text="calc.type === 'utility' ? calc.capacity + ' MWp' : calc.area + ' sq. m'">150 MWp</span>
-                            </div>
-                            
-                            <!-- Real Estate Area Sliders -->
-                            <div x-show="calc.type !== 'utility'">
-                                <input type="range" min="100" max="10000" step="50" x-model="calc.area" @input="calculateROI()"
-                                       class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-amber">
-                                <div class="flex justify-between text-[11px] text-slate-500">
-                                    <span>100 m²</span>
-                                    <span>10,000 m²</span>
-                                </div>
-                            </div>
-
-                            <!-- Utility Power Plant Sliders -->
-                            <div x-show="calc.type === 'utility'">
-                                <input type="range" min="10" max="1000" step="10" x-model="calc.capacity" @input="calculateROI()"
-                                       class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-amber">
-                                <div class="flex justify-between text-[11px] text-slate-500">
-                                    <span>10 MWp</span>
-                                    <span>1,000 MWp (1 GW)</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Energy Bill vs PPA Tariff (Conditional based on Type) -->
-                        <div class="space-y-2">
-                            <div class="flex justify-between text-sm font-semibold">
-                                <span class="text-slate-300" x-text="calc.type === 'utility' ? 'PPA Offtake Tariff' : 'Monthly Utility Expense'">PPA Offtake Tariff</span>
-                                <span class="text-brand-amber font-display font-bold" x-text="calc.type === 'utility' ? '$' + calc.ppaTariff + ' / MWh' : '$' + Number(calc.monthlyBill).toLocaleString()">$45 / MWh</span>
-                            </div>
-
-                            <!-- Real estate cost inputs -->
-                            <div x-show="calc.type !== 'utility'">
-                                <input type="range" min="500" max="50000" step="250" x-model="calc.monthlyBill" @input="calculateROI()"
-                                       class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-amber">
-                                <div class="flex justify-between text-[11px] text-slate-500">
-                                    <span>$500</span>
-                                    <span>$50,000</span>
-                                </div>
-                            </div>
-
-                            <!-- Utility Scale tariff inputs -->
-                            <div x-show="calc.type === 'utility'">
-                                <input type="range" min="15" max="150" step="5" x-model="calc.ppaTariff" @input="calculateROI()"
-                                       class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-amber">
-                                <div class="flex justify-between text-[11px] text-slate-500">
-                                    <span>$15 / MWh</span>
-                                    <span>$150 / MWh</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Solar Quality Selector -->
-                        <div class="space-y-2">
-                            <label class="block text-sm font-semibold text-slate-300">Procured Equipment Grade</label>
-                            <select x-model="calc.grade" @change="calculateROI()" class="w-full py-2.5 px-4 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 focus:outline-none focus:border-brand-amber text-xs font-semibold">
-                                <option value="quantum">Premium Double-Glass Bifacial Trackers (24%+ Peak Yield)</option>
-                                <option value="premium">Bifacial Tier-1 Standard Modules (22% yield)</option>
-                                <option value="aesthetic">Monofacial Direct Foundries (18% yield)</option>
-                            </select>
-                        </div>
-
-                        <!-- Sourcing Route Simulator -->
-                        <div class="space-y-2 pt-2 border-t border-slate-800/80">
-                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest">Global Maritime Freight Lane</label>
-                            <div class="grid grid-cols-3 gap-2">
-                                <button @click="calc.route = 'direct'; calculateROI()" 
-                                        :class="calc.route === 'direct' ? 'border-brand-emerald text-brand-emerald bg-brand-emerald/5' : 'border-slate-800 text-slate-400 hover:border-slate-700'"
-                                        class="p-2.5 rounded-xl border text-[10px] font-bold transition-all text-center">
-                                    <i class="fa-solid fa-anchor block mb-1"></i>Direct Canal
-                                </button>
-                                <button @click="calc.route = 'cape'; calculateROI()" 
-                                        :class="calc.route === 'cape' ? 'border-brand-amber text-brand-amber bg-brand-amber/5' : 'border-slate-800 text-slate-400 hover:border-slate-700'"
-                                        class="p-2.5 rounded-xl border text-[10px] font-bold transition-all text-center">
-                                    <i class="fa-solid fa-ship block mb-1"></i>Cape Route
-                                </button>
-                                <button @click="calc.route = 'transpac'; calculateROI()" 
-                                        :class="calc.route === 'transpac' ? 'border-blue-400 text-blue-400 bg-blue-500/5' : 'border-slate-800 text-slate-400 hover:border-slate-700'"
-                                        class="p-2.5 rounded-xl border text-[10px] font-bold transition-all text-center">
-                                    <i class="fa-solid fa-water block mb-1"></i>Transpacific
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Simulation Outcomes (Dynamic charts & live figures) -->
-                <div class="lg:col-span-7 space-y-8">
-                    <!-- High level metric badges -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                        <!-- Metric 1 -->
-                        <div class="bg-gradient-to-br from-brand-slate to-slate-900 p-6 rounded-2xl border border-slate-800 shadow-md">
-                            <span class="text-[11px] font-bold tracking-widest text-slate-400 block uppercase" x-text="calc.type === 'utility' ? 'Projected Annual Revenue' : 'Projected Annual Savings'">Projected Annual Revenue</span>
-                            <span class="text-2xl sm:text-3xl font-extrabold text-brand-emerald font-display block mt-2" x-text="'$' + Number(calc.annualSavings).toLocaleString()">$10,125,000</span>
-                            <span class="text-xs text-brand-emerald/80 block mt-1">
-                                <i class="fa-solid fa-caret-up mr-1"></i>
-                                <span x-text="calc.type === 'utility' ? 'Annual PPA Yield' : 'Utility Relief Saved'">Annual PPA Yield</span>
-                            </span>
-                        </div>
-                        <!-- Metric 2 -->
-                        <div class="bg-gradient-to-br from-brand-slate to-slate-900 p-6 rounded-2xl border border-slate-800 shadow-md">
-                            <span class="text-[11px] font-bold tracking-widest text-slate-400 block uppercase">Project Payback ROI</span>
-                            <span class="text-2xl sm:text-3xl font-extrabold text-brand-amber font-display block mt-2" x-text="calc.paybackYears + ' Years'">11.1 Years</span>
-                            <span class="text-xs text-brand-amber/80 block mt-1"><i class="fa-solid fa-clock mr-1"></i>Breakeven benchmark</span>
-                        </div>
-                        <!-- Metric 3 -->
-                        <div class="bg-gradient-to-br from-brand-slate to-slate-900 p-6 rounded-2xl border border-slate-800 shadow-md">
-                            <span class="text-[11px] font-bold tracking-widest text-slate-400 block uppercase">Carbon Mitigation Offset</span>
-                            <span class="text-2xl sm:text-3xl font-extrabold text-blue-400 font-display block mt-2" x-text="calc.carbonOffset + ' Tons / yr'">105,000 Tons</span>
-                            <span class="text-xs text-blue-400/80 block mt-1" x-text="'Equivalent to ' + calc.treesPlanted + ' trees planted'"><i class="fa-solid fa-leaf mr-1"></i>Environmental asset</span>
-                        </div>
-                    </div>
-
-                    <!-- Logistics Impact Output Banner -->
-                    <div class="p-4 rounded-2xl border border-slate-800 bg-slate-900/80 flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300">
-                                <i class="fa-solid fa-route" :class="calc.route === 'cape' ? 'text-brand-amber' : calc.route === 'transpac' ? 'text-blue-400' : 'text-brand-emerald'"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xs font-bold text-slate-300">Transit Lane Risk & Days Buffer</h4>
-                                <p class="text-[11px] text-slate-500" x-text="'Maritime Route: ' + (calc.route === 'cape' ? 'Cape of Good Hope Bypass' : calc.route === 'transpac' ? 'Transpacific Deep Sea' : 'Direct Mediterranean Suez')"></p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="text-center">
-                                <span class="text-[10px] text-slate-400 block">Est. Sourcing Days</span>
-                                <span class="font-bold font-display text-sm text-white" x-text="logisticDays + ' Days'">30 Days</span>
-                            </div>
-                            <div class="text-center">
-                                <span class="text-[10px] text-slate-400 block">Transit Surcharge</span>
-                                <span class="font-bold font-display text-sm text-brand-amber" x-text="logisticRiskFactor + 'x'">1.0x</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Custom Cumulative Cashflow projection chart -->
-                    <div class="bg-slate-900/60 p-6 rounded-3xl border border-slate-800/80">
-                        <div class="flex items-center justify-between pb-4 border-b border-slate-800/80 mb-6">
-                            <div>
-                                <h4 class="text-sm font-bold text-white tracking-wide" x-text="calc.type === 'utility' ? 'Utility-Scale Commercial Financial Yield' : 'Financial Cumulative Cashflow Projection'">Utility-Scale Commercial Financial Yield</h4>
-                                <p class="text-xs text-slate-500">Cumulative financial return simulated over a 20-year span</p>
-                            </div>
-                            <span class="px-2.5 py-1 bg-brand-amber/10 text-brand-amber text-xs font-bold rounded-full">GW Yield Model V2.6</span>
-                        </div>
-
-                        <!-- Chart Container -->
-                        <div class="h-[250px] relative">
-                            <canvas id="roiChart" class="w-full h-full"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SOLAR INNOVATION HUB -->
-    <section id="innovations" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
-            <span class="text-sm font-bold text-brand-emerald uppercase tracking-widest">Scientific Milestones</span>
-            <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-                Pioneering Clean Sovereign Tech
-            </h2>
-            <p class="text-slate-400">
-                Explore the premium materials and cutting-edge paradigms PrimeRealties leverages to unlock exceptional real estate energy productivity.
-            </p>
-        </div>
-
-        <!-- Grid Layout -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Innovation Item 1 -->
-            <div class="bg-slate-900 rounded-3xl overflow-hidden border border-slate-800 group transition-all hover:border-slate-700/80 shadow-lg">
-                <div class="h-48 overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=600" alt="BIPV tech" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=BIPV+Solar+Tech'" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
-                    <span class="absolute bottom-4 left-4 px-2.5 py-1 bg-brand-emerald text-slate-950 text-xs font-bold rounded-md">BIPV Technology</span>
-                </div>
-                <div class="p-6 space-y-3">
-                    <h4 class="text-xl font-bold text-white">Quantum Facade Tinting</h4>
-                    <p class="text-sm text-slate-400 leading-relaxed">
-                        Innovative glass-glazing technology that transforms high-rise skyscraper window panels into transparent solar harvesters without reducing ambient light properties.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Innovation Item 2 -->
-            <div class="bg-slate-900 rounded-3xl overflow-hidden border border-slate-800 group transition-all hover:border-slate-700/80 shadow-lg">
-                <div class="h-48 overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=600" alt="Artificial Intelligence Grid" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=AI+Smart+Grid'" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
-                    <span class="absolute bottom-4 left-4 px-2.5 py-1 bg-brand-amber text-slate-950 text-xs font-bold rounded-md">Machine Learning</span>
-                </div>
-                <div class="p-6 space-y-3">
-                    <h4 class="text-xl font-bold text-white">Predictive Grid Dispatching</h4>
-                    <p class="text-sm text-slate-400 leading-relaxed">
-                        Proprietary AI micro-controller systems that monitor localized weather matrices to optimally direct collected power across structural components or export to smart energy grids.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Innovation Item 3 -->
-            <div class="bg-slate-900 rounded-3xl overflow-hidden border border-slate-800 group transition-all hover:border-slate-700/80 shadow-lg">
-                <div class="h-48 overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1548345680-f5475ea5df84?auto=format&fit=crop&q=80&w=600" alt="Smart Battery Suite" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=Energy+Storage'" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
-                    <span class="absolute bottom-4 left-4 px-2.5 py-1 bg-blue-500 text-white text-xs font-bold rounded-md">Solid-State</span>
-                </div>
-                <div class="p-6 space-y-3">
-                    <h4 class="text-xl font-bold text-white">Thermal Storage Integration</h4>
-                    <p class="text-sm text-slate-400 leading-relaxed">
-                        State-of-the-art non-combustible energy cells offering zero degradation properties over decades, providing structural self-sufficiency around the clock.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CLIENT TESTIMONIALS & CASE STUDY -->
-    <section class="py-24 bg-slate-900/40 border-t border-slate-800/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <!-- Left Narrative -->
-                <div class="lg:col-span-5 space-y-6">
-                    <span class="text-sm font-bold text-brand-emerald uppercase tracking-widest">Case Study Portfolio</span>
-                    <h3 class="font-display text-3xl sm:text-4xl font-extrabold text-white">The Aragon GW Utility expansion</h3>
-                    <p class="text-slate-400 leading-relaxed">
-                        PrimeRealties collaborated with Atlantic Solar Grid in 2025 to negotiate direct procurement contracts for 450MWp of high-intensity double-glass trackers.
-                    </p>
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-circle-check text-brand-emerald"></i>
-                            <span class="text-sm font-medium text-slate-300">Eliminated broker structures, saving 16.8% on hardware bill</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-circle-check text-brand-emerald"></i>
-                            <span class="text-sm font-medium text-slate-300">Factory audit & linear production warranty enforcement</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-circle-check text-brand-emerald"></i>
-                            <span class="text-sm font-medium text-slate-300">Interconnection validation achieved 2 months ahead of EPC delivery</span>
-                        </div>
-                    </div>
-                    <div class="pt-4">
-                        <a href="#wizard" class="inline-flex items-center gap-2 text-brand-amber font-bold hover:underline">
-                            <span>Read Procurement Case Study PDF</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Right Quote Card -->
-                <div class="lg:col-span-7 bg-brand-deep p-8 rounded-3xl border border-slate-800 relative">
-                    <!-- Elegant Quote layout -->
-                    <span class="absolute -top-6 -left-6 text-9xl text-slate-850 font-serif select-none pointer-events-none">“</span>
-                    <div class="relative z-10 space-y-6">
-                        <p class="text-lg text-slate-300 italic leading-relaxed">
-                            "PrimeRealties.solar redefined our plant sourcing strategy. Their deep, direct foundry pipelines bypassed high agent premiums and saved us millions on modules, trackers, and inverters for our largest Spanish field expansion."
-                        </p>
-                        <div class="flex items-center gap-4 border-t border-slate-800 pt-6">
-                            <div class="w-12 h-12 rounded-full overflow-hidden bg-slate-700">
-                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=150" alt="Executive" onerror="this.src='https://placehold.co/150x150/1e293b/ffffff?text=VP'">
-                            </div>
-                            <div>
-                                <h5 class="font-bold text-white">Elizabeth Vance</h5>
-                                <p class="text-xs text-slate-400">VP Sourcing, Atlantic Solar Grid</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- INTERACTIVE LEAD GENERATION WIZARD -->
-    <section id="wizard" class="py-24 max-w-4xl mx-auto px-4 sm:px-6">
-        <div class="bg-gradient-to-br from-brand-slate to-slate-900 rounded-3xl border border-slate-800 p-8 sm:p-12 relative shadow-2xl emerald-glow">
-            
-            <div class="text-center space-y-3 mb-10">
-                <span class="text-xs font-bold text-brand-amber tracking-widest uppercase">Consultancy & Supply Access Point</span>
-                <h3 class="font-display text-3xl font-extrabold text-white">Unlock Your Procurement Audit</h3>
-                <p class="text-sm text-slate-400 max-w-lg mx-auto">
-                    Configure your high-volume supply requirements. Our senior industrial architects and legal specialists will build out a detailed factory-direct pipeline estimate.
-                </p>
-            </div>
-
-            <!-- Steps Progress Header -->
-            <div class="flex items-center justify-between mb-8 max-w-md mx-auto relative">
-                <div class="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-800 -translate-y-1/2 z-0"></div>
-                <div class="absolute top-1/2 left-0 h-0.5 bg-brand-emerald -translate-y-1/2 z-0 transition-all duration-300" :style="'width: ' + ((wizardStep - 1) / 2 * 100) + '%'"></div>
-
-                <template x-for="step in 3" :key="step">
-                    <div class="relative z-10 flex flex-col items-center">
-                        <div :class="wizardStep >= step ? 'bg-brand-emerald text-slate-950 font-extrabold' : 'bg-slate-800 text-slate-500'" 
-                             class="w-8 h-8 rounded-full flex items-center justify-center text-xs transition-colors duration-300"
-                             x-text="step"></div>
-                        <span class="text-[10px] uppercase font-bold tracking-wider mt-2" 
-                              :class="wizardStep >= step ? 'text-brand-emerald' : 'text-slate-500'"
-                              x-text="step === 1 ? 'Plant scale' : step === 2 ? 'Incentives' : 'Sourcing Details'"></span>
-                    </div>
-                </template>
-            </div>
-
-            <!-- Inline Validation Alert (Avoiding prompt / native alerts) -->
-            <div x-show="wizardError" x-transition class="mb-6 p-4 bg-red-950/80 border border-red-500/50 rounded-xl flex items-center gap-3 text-red-200 text-xs">
-                <i class="fa-solid fa-triangle-exclamation text-red-500 text-sm"></i>
-                <span>Please complete the Name and Corporate Email fields so our supply architects can coordinate your feasibility check.</span>
-            </div>
-
-            <!-- Wizard Content Blocks -->
-            <div class="min-h-[220px]">
                 
-                <!-- STEP 1 -->
-                <div x-show="wizardStep === 1" x-transition.opacity class="space-y-6">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="space-y-2">
-                            <label class="block text-sm font-semibold text-slate-300">Project / Plant Location</label>
-                            <input type="text" x-model="lead.location" placeholder="e.g., California, Aragon, Munich, Seville" 
-                                   class="w-full py-3 px-4 rounded-xl bg-slate-850 border border-slate-700 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-emerald text-sm">
-                        </div>
-                        <div class="space-y-2">
-                            <label class="block text-sm font-semibold text-slate-300">Project Sourcing Class</label>
-                            <select x-model="lead.areaSize" class="w-full py-3 px-4 rounded-xl bg-slate-850 border border-slate-700 text-slate-200 focus:outline-none focus:border-brand-emerald text-sm">
-                                <option value="enterprise">Over 100 MWp - Gigawatt Scale Sourcing Allocation</option>
-                                <option value="large">10 MWp - 100 MWp (Utility Power Plant Sourcing)</option>
-                                <option value="medium">500 m² - 5,000 m² (Commercial Hub/Development)</option>
-                                <option value="small">Bespoke Luxury Estate Integration (Houses - Secondary)</option>
-                            </select>
-                        </div>
+                <!-- Card 2 -->
+                <div class="glass-card p-8 rounded-2xl text-center">
+                    <div class="w-16 h-16 mx-auto bg-blue-900/50 rounded-full flex items-center justify-center mb-6 border border-blue-500/30">
+                        <i class="fa-solid fa-microscope text-2xl text-blue-400"></i>
                     </div>
-                    <div class="space-y-2">
-                        <label class="block text-sm font-semibold text-slate-300">Your Primary Sourcing Goal</label>
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                            <button @click="lead.focus = 'GW-Scale Procurement'" :class="lead.focus === 'GW-Scale Procurement' ? 'border-brand-emerald text-brand-emerald bg-brand-emerald/5' : 'border-slate-800 text-slate-400'" class="p-3 text-[11px] font-bold rounded-xl border hover:border-slate-700">GW Procurement</button>
-                            <button @click="lead.focus = 'Plant Sourcing Strategy'" :class="lead.focus === 'Plant Sourcing Strategy' ? 'border-brand-emerald text-brand-emerald bg-brand-emerald/5' : 'border-slate-800 text-slate-400'" class="p-3 text-[11px] font-bold rounded-xl border hover:border-slate-700">Sourcing Strategy</button>
-                            <button @click="lead.focus = 'Grid Substation & EPC'" :class="lead.focus === 'Grid Substation & EPC' ? 'border-brand-emerald text-brand-emerald bg-brand-emerald/5' : 'border-slate-800 text-slate-400'" class="p-3 text-[11px] font-bold rounded-xl border hover:border-slate-700">EPC Grid Support</button>
-                            <button @click="lead.focus = 'Aesthetic BIPV Integration'" :class="lead.focus === 'Aesthetic BIPV Integration' ? 'border-brand-emerald text-brand-emerald bg-brand-emerald/5' : 'border-slate-800 text-slate-400'" class="p-3 text-[11px] font-bold rounded-xl border hover:border-slate-700">Estate BIPV (Bespoke)</button>
-                        </div>
-                    </div>
+                    <h3 class="text-xl font-bold mb-3">R&D & Innovation</h3>
+                    <p class="text-slate-400">Continuous research into next-generation photovoltaics, tandem cells, and energy storage integrations to keep your projects decades ahead.</p>
                 </div>
 
-                <!-- STEP 2 -->
-                <div x-show="wizardStep === 2" x-transition.opacity class="space-y-6">
-                    <div class="space-y-4">
-                        <p class="text-sm font-medium text-slate-300">Select targeted procurement parameters & regulatory structures:</p>
-                        <div class="space-y-2">
-                            <label class="flex items-center gap-3 p-3 bg-slate-850 rounded-xl border border-slate-700 cursor-pointer hover:bg-slate-800">
-                                <input type="checkbox" x-model="lead.incentives.bipv" class="accent-brand-emerald rounded w-4 h-4" checked>
-                                <span class="text-xs text-slate-300">Direct Foundry Allocations (Eliminating intermediate distributor fees)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-3 bg-slate-850 rounded-xl border border-slate-700 cursor-pointer hover:bg-slate-800">
-                                <input type="checkbox" x-model="lead.incentives.export" class="accent-brand-emerald rounded w-4 h-4" checked>
-                                <span class="text-xs text-slate-300">Power Purchase Agreement (PPA) / Utility Interconnection feasibility review</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-3 bg-slate-850 rounded-xl border border-slate-700 cursor-pointer hover:bg-slate-800">
-                                <input type="checkbox" x-model="lead.incentives.tax" class="accent-brand-emerald rounded w-4 h-4">
-                                <span class="text-xs text-slate-300">Renewable Energy Investment Credits, local zoning, and supply chain ESG compliance</span>
-                            </label>
-                        </div>
+                <!-- Card 3 -->
+                <div class="glass-card p-8 rounded-2xl text-center">
+                    <div class="w-16 h-16 mx-auto bg-blue-900/50 rounded-full flex items-center justify-center mb-6 border border-blue-500/30">
+                        <i class="fa-solid fa-chart-line text-2xl text-blue-400"></i>
                     </div>
+                    <h3 class="text-xl font-bold mb-3">Technical Advisory</h3>
+                    <p class="text-slate-400">Deep-dive suitability assessments. We advise on optimal panel types, tracking systems, and inverters based on specific geographic and climatic data.</p>
                 </div>
-
-                <!-- STEP 3 -->
-                <div x-show="wizardStep === 3" x-transition.opacity class="space-y-6">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="space-y-2">
-                            <label class="block text-sm font-semibold text-slate-300">Corporate Name / Contact</label>
-                            <input type="text" x-model="lead.name" placeholder="Elizabeth Vance" 
-                                   class="w-full py-3 px-4 rounded-xl bg-slate-850 border border-slate-700 text-slate-200 focus:outline-none focus:border-brand-emerald text-sm">
-                        </div>
-                        <div class="space-y-2">
-                            <label class="block text-sm font-semibold text-slate-300">Direct Corporate Email</label>
-                            <input type="email" x-model="lead.email" placeholder="vance@atlanticsolargrid.com" 
-                                   class="w-full py-3 px-4 rounded-xl bg-slate-850 border border-slate-700 text-slate-200 focus:outline-none focus:border-brand-emerald text-sm">
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <label class="block text-sm font-semibold text-slate-300">Brief Overview of Sourcing Targets / MW Capacity Requirements</label>
-                        <textarea x-model="lead.notes" rows="3" placeholder="Detail your target MW capacity, brand preferences, delivery schedules, or premium BIPV estate co-designs..." 
-                                  class="w-full py-3 px-4 rounded-xl bg-slate-855 border border-slate-700 text-slate-200 focus:outline-none focus:border-brand-emerald text-sm"></textarea>
-                    </div>
-                </div>
-
             </div>
-
-            <!-- Navigation Actions -->
-            <div class="flex items-center justify-between border-t border-slate-800/80 pt-6 mt-8">
-                <button x-show="wizardStep > 1" @click="wizardStep--; wizardError = false;" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-white transition-colors">
-                    <i class="fa-solid fa-arrow-left mr-2"></i>Back
-                </button>
-                <div x-show="wizardStep === 1"></div> <!-- Spacer if back is hidden -->
-
-                <button x-show="wizardStep < 3" @click="wizardStep++" class="px-6 py-2.5 rounded-xl bg-brand-emerald text-slate-950 font-bold text-xs uppercase tracking-wider glow-hover flex items-center gap-2">
-                    <span>Next step</span>
-                    <i class="fa-solid fa-arrow-right"></i>
-                </button>
-
-                <!-- Final Submit Button -->
-                <button x-show="wizardStep === 3" @click="submitLead()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-brand-amber to-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider glow-hover flex items-center gap-2">
-                    <span>Generate Sourcing Proposal</span>
-                    <i class="fa-solid fa-paper-plane"></i>
-                </button>
-            </div>
-
-            <!-- Custom Success Message Box -->
-            <div x-show="submissionSuccess" x-transition class="absolute inset-0 bg-slate-900/95 rounded-3xl p-8 flex flex-col items-center justify-center text-center space-y-6 z-20">
-                <div class="w-16 h-16 rounded-full bg-brand-emerald/10 text-brand-emerald flex items-center justify-center text-3xl animate-bounce">
-                    <i class="fa-solid fa-envelope-circle-check"></i>
-                </div>
-                <div class="space-y-2">
-                    <h4 class="text-2xl font-bold text-white">Sourcing Analysis Triggered!</h4>
-                    <p class="text-sm text-slate-400 max-w-md">
-                        Thank you, <strong class="text-white" x-text="lead.name"></strong>. We have initialized our preliminary foundry supply feasibility check for <span class="text-brand-amber" x-text="lead.location || 'your project'"></span>.
-                    </p>
-                    <p class="text-xs text-slate-500">
-                        Our Senior Procurement Specialist will reach out directly at <span class="text-brand-emerald" x-text="lead.email"></span> with a detailed allocation proposal.
-                    </p>
-                </div>
-                <button @click="resetWizard()" class="px-6 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-white">
-                    Request New Sourcing Audit
-                </button>
-            </div>
-
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-brand-deep border-t border-slate-800 py-16 text-slate-400">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
-                <!-- Brand details -->
-                <div class="md:col-span-4 space-y-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded bg-gradient-to-br from-brand-amber to-brand-emerald flex items-center justify-center">
-                            <i class="fa-solid fa-sun text-white text-md"></i>
+    <!-- NEW SECTION: Core Focus (Interactive Tabs & Diagram) -->
+    <section id="core-focus" class="py-24 bg-[#080d18] relative border-t border-slate-800 overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                
+                <!-- Left Column: Content & Tabs -->
+                <div class="z-10">
+                    <p class="text-orange-500 font-bold text-xs tracking-widest uppercase mb-4">Core Focus: GW Tracking Field</p>
+                    
+                    <!-- Dynamic Content Area -->
+                    <div id="tab-content-container" class="min-h-[220px]">
+                        <!-- Tab 1 Content -->
+                        <div class="tab-content active" id="content-1">
+                            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Sovereign Bifacial Solar Arrays</h2>
+                            <p class="text-slate-400 leading-relaxed mb-8">
+                                High-yield dual-sided crystalline trackers that capture ground albedo reflection alongside direct sun angles, maximizing energy yield density across utility-scale fields.
+                            </p>
+                            <div class="grid grid-cols-2 gap-4 mb-10">
+                                <div class="border border-slate-700 rounded-xl p-5 bg-[#0b101e]">
+                                    <p class="text-xs text-slate-500 uppercase tracking-wider mb-2">Sourcing Benchmark</p>
+                                    <p class="text-xl font-bold text-white">24.2% Peak Yield</p>
+                                </div>
+                                <div class="border border-slate-700 rounded-xl p-5 bg-[#0b101e]">
+                                    <p class="text-xs text-slate-500 uppercase tracking-wider mb-2">Production Output</p>
+                                    <p class="text-xl font-bold text-emerald-400">8.4 GW Sourced</p>
+                                </div>
+                            </div>
                         </div>
-                        <span class="font-display font-extrabold text-white text-lg tracking-tight">PrimeRealties.solar</span>
+
+                        <!-- Tab 2 Content -->
+                        <div class="tab-content" id="content-2">
+                            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">High-Voltage Power Stations</h2>
+                            <p class="text-slate-400 leading-relaxed mb-8">
+                                Centralized inversion and step-up transformer solutions designed to handle multi-gigawatt loads, ensuring grid stability and ultra-low transmission loss over long distances.
+                            </p>
+                            <div class="grid grid-cols-2 gap-4 mb-10">
+                                <div class="border border-slate-700 rounded-xl p-5 bg-[#0b101e]">
+                                    <p class="text-xs text-slate-500 uppercase tracking-wider mb-2">Conversion Efficiency</p>
+                                    <p class="text-xl font-bold text-white">99.1% Max</p>
+                                </div>
+                                <div class="border border-slate-700 rounded-xl p-5 bg-[#0b101e]">
+                                    <p class="text-xs text-slate-500 uppercase tracking-wider mb-2">Grid Integration</p>
+                                    <p class="text-xl font-bold text-emerald-400">Seamless Sync</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab 3 Content -->
+                        <div class="tab-content" id="content-3">
+                            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Sovereign Logistics Pipelines</h2>
+                            <p class="text-slate-400 leading-relaxed mb-8">
+                                End-to-end global supply chain management. We secure priority shipping routes and rapid customs clearances for tier-1 solar components, avoiding costly project delays.
+                            </p>
+                            <div class="grid grid-cols-2 gap-4 mb-10">
+                                <div class="border border-slate-700 rounded-xl p-5 bg-[#0b101e]">
+                                    <p class="text-xs text-slate-500 uppercase tracking-wider mb-2">Delivery Success Rate</p>
+                                    <p class="text-xl font-bold text-white">99.8% On-Time</p>
+                                </div>
+                                <div class="border border-slate-700 rounded-xl p-5 bg-[#0b101e]">
+                                    <p class="text-xs text-slate-500 uppercase tracking-wider mb-2">Active Routes</p>
+                                    <p class="text-xl font-bold text-emerald-400">140+ Global</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab 4 Content -->
+                        <div class="tab-content" id="content-4">
+                            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Estate Integration Blueprint</h2>
+                            <p class="text-slate-400 leading-relaxed mb-8">
+                                Comprehensive land-use planning that harmonizes massive solar deployments with local ecology, agriculture (agrivoltaics), and community infrastructure.
+                            </p>
+                            <div class="grid grid-cols-2 gap-4 mb-10">
+                                <div class="border border-slate-700 rounded-xl p-5 bg-[#0b101e]">
+                                    <p class="text-xs text-slate-500 uppercase tracking-wider mb-2">Land Optimization</p>
+                                    <p class="text-xl font-bold text-white">+15% Density</p>
+                                </div>
+                                <div class="border border-slate-700 rounded-xl p-5 bg-[#0b101e]">
+                                    <p class="text-xs text-slate-500 uppercase tracking-wider mb-2">ESG Compliance</p>
+                                    <p class="text-xl font-bold text-emerald-400">Tier-1 Rated</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-xs text-slate-500 leading-relaxed">
-                        PrimeRealties Solar is an elite energy logistics consultancy and bulk procurement pipeline. Registered in Zurich, we negotiate direct multi-megawatt allocation contracts with premier Tier-1 foundries on behalf of global utility developers.
-                    </p>
+
+                    <!-- Vertical Tabs -->
+                    <div class="flex flex-col gap-3">
+                        <button class="focus-tab w-full text-left px-6 py-4 rounded-xl border transition-all flex items-center gap-4 group border-slate-800 bg-slate-900/40 hover:bg-slate-800/60 hover:border-slate-600 data-[active=true]:border-orange-500 data-[active=true]:bg-[#121826] data-[active=true]:shadow-[0_4px_20px_rgba(245,158,11,0.08)]" data-target="1" data-active="true">
+                            <i class="fa-solid fa-solar-panel text-lg transition-transform group-hover:scale-110 text-slate-500 group-data-[active=true]:text-orange-500"></i>
+                            <span class="font-semibold text-slate-400 group-data-[active=true]:text-white">Sovereign Bifacial Solar Arrays</span>
+                        </button>
+                        <button class="focus-tab w-full text-left px-6 py-4 rounded-xl border transition-all flex items-center gap-4 group border-slate-800 bg-slate-900/40 hover:bg-slate-800/60 hover:border-slate-600 data-[active=true]:border-orange-500 data-[active=true]:bg-[#121826] data-[active=true]:shadow-[0_4px_20px_rgba(245,158,11,0.08)]" data-target="2" data-active="false">
+                            <i class="fa-solid fa-bolt text-lg transition-transform group-hover:scale-110 text-slate-500 group-data-[active=true]:text-orange-500"></i>
+                            <span class="font-semibold text-slate-400 group-data-[active=true]:text-white">High-Voltage Power Stations</span>
+                        </button>
+                        <button class="focus-tab w-full text-left px-6 py-4 rounded-xl border transition-all flex items-center gap-4 group border-slate-800 bg-slate-900/40 hover:bg-slate-800/60 hover:border-slate-600 data-[active=true]:border-orange-500 data-[active=true]:bg-[#121826] data-[active=true]:shadow-[0_4px_20px_rgba(245,158,11,0.08)]" data-target="3" data-active="false">
+                            <i class="fa-solid fa-ship text-lg transition-transform group-hover:scale-110 text-slate-500 group-data-[active=true]:text-orange-500"></i>
+                            <span class="font-semibold text-slate-400 group-data-[active=true]:text-white">Sovereign Logistics Pipelines</span>
+                        </button>
+                        <button class="focus-tab w-full text-left px-6 py-4 rounded-xl border transition-all flex items-center gap-4 group border-slate-800 bg-slate-900/40 hover:bg-slate-800/60 hover:border-slate-600 data-[active=true]:border-orange-500 data-[active=true]:bg-[#121826] data-[active=true]:shadow-[0_4px_20px_rgba(245,158,11,0.08)]" data-target="4" data-active="false">
+                            <i class="fa-solid fa-house-flag text-lg transition-transform group-hover:scale-110 text-slate-500 group-data-[active=true]:text-orange-500"></i>
+                            <span class="font-semibold text-slate-400 group-data-[active=true]:text-white">Estate Integration Blueprint</span>
+                        </button>
+                    </div>
                 </div>
 
-                <!-- Footer Links 1 -->
-                <div class="md:col-span-3 space-y-3">
-                    <h5 class="text-xs font-bold text-white uppercase tracking-widest border-b border-slate-800 pb-2">Sourcing Scope</h5>
-                    <ul class="space-y-2 text-xs">
-                        <li><a href="#services" class="hover:text-brand-amber transition-colors">GW Utility Procurement</a></li>
-                        <li><a href="#services" class="hover:text-brand-amber transition-colors">Bifacial Tracker Fields</a></li>
-                        <li><a href="#services" class="hover:text-brand-amber transition-colors">High-Voltage Substations</a></li>
-                        <li><a href="#services" class="hover:text-brand-amber transition-colors">Luxury Houses (Secondary)</a></li>
-                    </ul>
-                </div>
+                <!-- Right Column: Animated Schematic -->
+                <div class="relative w-full aspect-video lg:aspect-square tech-grid-bg rounded-3xl border border-slate-800 shadow-2xl flex items-center justify-center p-8">
+                    <!-- SVG Diagram -->
+                    <svg viewBox="0 0 600 400" class="w-full h-full drop-shadow-2xl overflow-visible">
+                        
+                        <!-- Connecting Dotted Path (Marching Ants) -->
+                        <path d="M 120 220 Q 200 280 270 240 T 420 270" fill="none" stroke="#10b981" stroke-width="2" class="marching-ants" />
+                        
+                        <!-- Base Platform Line -->
+                        <line x1="50" y1="300" x2="550" y2="300" stroke="#1e293b" stroke-width="6" stroke-linecap="round" />
 
-                <!-- Footer Links 2 -->
-                <div class="md:col-span-2 space-y-3">
-                    <h5 class="text-xs font-bold text-white uppercase tracking-widest border-b border-slate-800 pb-2">Information</h5>
-                    <ul class="space-y-2 text-xs">
-                        <li><a href="#innovations" class="hover:text-brand-amber transition-colors">Tech Catalog</a></li>
-                        <li><a href="#showcase" class="hover:text-brand-amber transition-colors">Plant Sourcing</a></li>
-                        <li><a href="#calculator" class="hover:text-brand-amber transition-colors">Yield Engine</a></li>
-                    </ul>
-                </div>
+                        <!-- Power Station / Inverter Structure -->
+                        <g transform="translate(400, 150)">
+                            <!-- Abstract Wireframe Roof -->
+                            <path d="M 0 60 L 50 10 L 120 10 L 80 60 Z" fill="none" stroke="#334155" stroke-width="2" />
+                            <line x1="120" y1="10" x2="100" y2="150" stroke="#334155" stroke-width="2" stroke-dasharray="4 4" />
+                            
+                            <!-- Main Box -->
+                            <rect x="10" y="80" width="80" height="70" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="3" />
+                            <!-- Inner detail -->
+                            <rect x="60" y="100" width="15" height="30" rx="2" fill="none" stroke="#10b981" stroke-width="1.5" />
+                            <circle cx="67.5" cy="115" r="4" fill="#10b981">
+                                <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite" />
+                            </circle>
+                        </g>
 
-                <!-- Contact & Legal -->
-                <div class="md:col-span-3 space-y-3">
-                    <h5 class="text-xs font-bold text-white uppercase tracking-widest border-b border-slate-800 pb-2">Head Office</h5>
-                    <p class="text-xs text-slate-500 leading-relaxed">
-                        PrimeRealties Energy AG<br>
-                        Bahnhofstrasse 12, 8001 Zurich<br>
-                        Switzerland
-                    </p>
-                    <p class="text-xs text-brand-emerald">
-                        <i class="fa-solid fa-envelope mr-2"></i>procurement@primerealties.solar
-                    </p>
+                        <!-- Solar Panel Modules -->
+                        <!-- Panel 1 -->
+                        <g transform="translate(120, 220)">
+                            <line x1="0" y1="0" x2="0" y2="80" stroke="#10b981" stroke-width="3" />
+                            <g class="sway-panel">
+                                <rect x="-40" y="-15" width="80" height="15" rx="2" fill="#1e293b" stroke="#10b981" stroke-width="2" />
+                                <rect x="-35" y="-12" width="70" height="9" fill="#10b981" opacity="0.8" />
+                            </g>
+                        </g>
+
+                        <!-- Panel 2 -->
+                        <g transform="translate(220, 240)">
+                            <line x1="0" y1="0" x2="0" y2="60" stroke="#10b981" stroke-width="3" />
+                            <g class="sway-panel sway-panel-2">
+                                <rect x="-40" y="-15" width="80" height="15" rx="2" fill="#1e293b" stroke="#10b981" stroke-width="2" />
+                                <rect x="-35" y="-12" width="70" height="9" fill="#10b981" opacity="0.8" />
+                            </g>
+                        </g>
+
+                        <!-- Panel 3 -->
+                        <g transform="translate(320, 240)">
+                            <line x1="0" y1="0" x2="0" y2="60" stroke="#10b981" stroke-width="3" />
+                            <g class="sway-panel sway-panel-3">
+                                <rect x="-40" y="-15" width="80" height="15" rx="2" fill="#1e293b" stroke="#10b981" stroke-width="2" />
+                                <rect x="-35" y="-12" width="70" height="9" fill="#10b981" opacity="0.8" />
+                            </g>
+                        </g>
+
+                    </svg>
+
+                    <!-- HTML Overlays for Markers -->
+                    <div class="tech-marker absolute top-[38%] left-[24%] w-8 h-8 rounded-full flex items-center justify-center text-sm font-extrabold z-20 transition-all duration-300 data-[active=true]:bg-orange-500 data-[active=true]:text-slate-900 data-[active=true]:pulse-marker data-[active=true]:shadow-lg data-[active=false]:bg-[#0f172a] data-[active=false]:border-2 data-[active=false]:border-orange-500 data-[active=false]:text-orange-500" data-marker-id="1" data-active="true">1</div>
+                    <div class="tech-marker absolute top-[60%] left-[71%] w-8 h-8 rounded-full flex items-center justify-center text-sm font-extrabold z-20 transition-all duration-300 data-[active=true]:bg-orange-500 data-[active=true]:text-slate-900 data-[active=true]:pulse-marker data-[active=true]:shadow-lg data-[active=false]:bg-[#0f172a] data-[active=false]:border-2 data-[active=false]:border-orange-500 data-[active=false]:text-orange-500" data-marker-id="2" data-active="false">2</div>
+                    <div class="tech-marker absolute top-[58%] left-[55%] w-8 h-8 rounded-full flex items-center justify-center text-sm font-extrabold z-20 transition-all duration-300 data-[active=true]:bg-orange-500 data-[active=true]:text-slate-900 data-[active=true]:pulse-marker data-[active=true]:shadow-lg data-[active=false]:bg-[#0f172a] data-[active=false]:border-2 data-[active=false]:border-orange-500 data-[active=false]:text-orange-500" data-marker-id="3" data-active="false">3</div>
+                    <div class="tech-marker absolute top-[28%] left-[68%] w-8 h-8 rounded-full flex items-center justify-center text-sm font-extrabold z-20 transition-all duration-300 data-[active=true]:bg-orange-500 data-[active=true]:text-slate-900 data-[active=true]:pulse-marker data-[active=true]:shadow-lg data-[active=false]:bg-[#0f172a] data-[active=false]:border-2 data-[active=false]:border-orange-500 data-[active=false]:text-orange-500" data-marker-id="4" data-active="false">4</div>
+
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Footer Bottom legal strip -->
-            <div class="border-t border-slate-800/80 pt-8 mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-600">
-                <p>&copy; 2026 PrimeRealties Solar. All Rights Reserved. Sourcing the Foundations of Sovereign Utility Grids.</p>
-                <div class="flex items-center gap-6">
-                    <a href="#" class="hover:text-slate-400">Terms of Service</a>
-                    <a href="#" class="hover:text-slate-400">Privacy Policy</a>
-                    <a href="#" class="hover:text-slate-400">ESG Disclosures</a>
+    <!-- NEW SECTION: R&D Technologies -->
+    <section id="rd" class="py-24 bg-slate-950 relative border-t border-slate-800">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/2">
+                    <h2 class="text-4xl font-bold mb-6">Next-Gen <span class="text-blue-500">R&D Focus</span></h2>
+                    <p class="text-slate-400 text-lg mb-8 leading-relaxed">We don't just procure; we pioneer. Our dedicated R&D division works directly with tier-1 manufacturers to stress-test and implement tomorrow's solar technologies today, ensuring your gigawatt projects achieve maximum efficiency over a 30+ year lifespan.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-900/40 flex items-center justify-center border border-blue-500/30 flex-shrink-0">
+                                <i class="fa-solid fa-layer-group text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-1">Perovskite Tandem Cells</h4>
+                                <p class="text-slate-400 text-sm">Pushing beyond the Shockley-Queisser limit by layering perovskite over silicon, aiming for >30% commercial efficiency.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-900/40 flex items-center justify-center border border-blue-500/30 flex-shrink-0">
+                                <i class="fa-solid fa-sun text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-1">Advanced Bifacial TOPCon</h4>
+                                <p class="text-slate-400 text-sm">Maximizing albedo capture with N-type substrates for lower degradation and superior high-temperature performance.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-900/40 flex items-center justify-center border border-blue-500/30 flex-shrink-0">
+                                <i class="fa-solid fa-microchip text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-1">AI-Optimized Tracking</h4>
+                                <p class="text-slate-400 text-sm">Procurement of smart single-axis trackers that use machine learning to adjust for diffuse light and weather patterns.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="md:w-1/2 relative">
+                    <div class="absolute inset-0 bg-blue-600 blur-[100px] opacity-20 rounded-full"></div>
+                    <div class="glass-card p-2 rounded-2xl relative z-10 border border-slate-700">
+                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Solar R&D Facility" class="rounded-xl w-full h-auto object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-500">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: Gigawatt Calculator -->
+    <section id="calculator" class="py-24 bg-[#0B1120] relative">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+             <div class="absolute top-[20%] left-[10%] w-96 h-96 bg-blue-900/20 rounded-full blur-[120px]"></div>
+        </div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Project <span class="text-blue-500">Estimator</span></h2>
+                <p class="text-slate-400 max-w-2xl mx-auto text-lg">Calculate rough requirements and yields for utility-scale solar deployments based on current global averages.</p>
+            </div>
+
+            <div class="max-w-5xl mx-auto glass-card rounded-3xl p-8 md:p-12 shadow-2xl border border-blue-500/20">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <!-- Inputs -->
+                    <div class="space-y-8">
+                        <div>
+                            <label class="block text-sm font-bold text-blue-400 mb-2 uppercase tracking-wider">Target Capacity (Megawatts - MW)</label>
+                            <div class="flex items-center gap-4">
+                                <input type="range" id="capacitySlider" min="10" max="2000" value="500" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-500">
+                                <input type="number" id="capacityInput" value="500" class="w-24 bg-slate-800 text-white font-bold px-3 py-2 rounded-lg border border-slate-600 focus:outline-none focus:border-blue-500 text-center">
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Scale from 10 MW to 2 GW (2000 MW)</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-blue-400 mb-2 uppercase tracking-wider">Estimated Irradiance (Hours/Year)</label>
+                            <select id="irradianceSelect" class="w-full bg-slate-800 text-white font-bold px-4 py-3 rounded-lg border border-slate-600 focus:outline-none focus:border-blue-500">
+                                <option value="1200">Northern Europe / UK (~1,200 hrs)</option>
+                                <option value="1600" selected>Global Average (~1,600 hrs)</option>
+                                <option value="2000">Southern US / Med (~2,000 hrs)</option>
+                                <option value="2400">MENA / Desert (~2,400 hrs)</option>
+                            </select>
+                        </div>
+                        
+                        <button type="button" class="w-full py-4 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl border border-slate-600 transition-colors flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-file-pdf text-red-400"></i> Download Full Technical Brief
+                        </button>
+                    </div>
+
+                    <!-- Outputs -->
+                    <div class="bg-slate-900/80 rounded-2xl p-8 border border-slate-700 shadow-inner grid grid-cols-1 gap-6">
+                        <div class="border-b border-slate-800 pb-4">
+                            <p class="text-sm text-slate-400 mb-1">Estimated Panel Requirement</p>
+                            <div class="text-3xl font-extrabold text-white flex items-baseline gap-2">
+                                <span id="outPanels">833,333</span> <span class="text-lg font-medium text-blue-500">modules</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1">Based on standard 600W Tier-1 modules</p>
+                        </div>
+                        
+                        <div class="border-b border-slate-800 pb-4">
+                            <p class="text-sm text-slate-400 mb-1">Approximate Land Area</p>
+                            <div class="text-3xl font-extrabold text-white flex items-baseline gap-2">
+                                <span id="outLand">750</span> <span class="text-lg font-medium text-blue-500">hectares</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1">Assuming ~1.5 hectares per MW</p>
+                        </div>
+
+                        <div>
+                            <p class="text-sm text-slate-400 mb-1">Estimated Annual Yield</p>
+                            <div class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 flex items-baseline gap-2">
+                                <span id="outYield">800.0</span> <span class="text-xl font-bold text-blue-400">GWh / yr</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1">Offsets ~<span id="outCO2">320,000</span> tonnes of CO2 annually</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gigawatt Scale Banner -->
+    <section class="py-20 relative overflow-hidden bg-blue-900">
+        <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div class="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-6">Ready for Gigawatt Scale?</h2>
+                <p class="text-xl text-blue-200 mb-8">From initial technical feasibility studies to finalizing global logistics, Prime Realties Ltd is your definitive partner in large-scale solar infrastructure.</p>
+                <ul class="space-y-4 font-semibold text-white">
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check-circle text-green-400"></i> Rigorous Quality Assurance</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check-circle text-green-400"></i> Top-Tier ESG Compliance</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check-circle text-green-400"></i> Climate-Specific Optimization</li>
+                </ul>
+            </div>
+            <div class="md:w-5/12">
+                <div class="bg-slate-900 p-8 rounded-2xl shadow-2xl border border-blue-500/30">
+                    <h3 class="text-2xl font-bold mb-6 text-center">Request an Assessment</h3>
+                    <form class="space-y-4">
+                        <input type="text" placeholder="Project Name" class="w-full bg-slate-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700">
+                        <input type="text" placeholder="Target Capacity (e.g., 1.5 GW)" class="w-full bg-slate-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700">
+                        <input type="email" placeholder="Corporate Email" class="w-full bg-slate-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700">
+                        <button type="button" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg transition-colors">Initiate Consultation</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-slate-950 pt-16 pb-8 border-t border-slate-800">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <div class="col-span-2">
+                    <a href="#" class="text-2xl font-extrabold tracking-wider flex items-center gap-2 mb-4">
+                        <i class="fa-solid fa-solar-panel text-blue-400"></i>
+                        PRIME <span class="text-blue-500">REALTIES</span>
+                    </a>
+                    <p class="text-slate-400 max-w-sm mb-6">Leading the transition to sustainable energy through elite procurement, continuous R&D, and world-class technical advisory.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li><a href="#" class="hover:text-blue-400">Procurement</a></li>
+                        <li><a href="#" class="hover:text-blue-400">R&D Lab</a></li>
+                        <li><a href="#" class="hover:text-blue-400">Technical Advisory</a></li>
+                        <li><a href="#" class="hover:text-blue-400">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Contact Info</h4>
+                    <ul class="space-y-2 text-slate-400 text-sm">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-building mt-1"></i> Prime Realties Ltd</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot mt-1"></i> Unit 5, 55-57 Park Royal Road<br>NW10 7LP, London, UK</li>
+                        <li class="flex items-start gap-2 mt-2"><i class="fa-solid fa-envelope mt-1"></i> contact@primerealties.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center text-slate-500 border-t border-slate-800 pt-8 text-sm">
+                <p>&copy; 2026 Prime Realties Ltd. All rights reserved.</p>
+                <p class="mt-2 md:mt-0">Registered in England & Wales | Company No. 12834604</p>
             </div>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC & APPS -->
     <script>
-        // Global Alpine.js application state
-        function solarApp() {
-            return {
-                mobileMenuOpen: false,
-                activeFeature: 0,
-                wizardStep: 1,
-                submissionSuccess: false,
-                wizardError: false,
-                simulatedPower: 1950, // Active default output
-                activeTickerMessage: "Direct canal channels cleared. Shanghai to Munich PPA queue active.",
-                
-                // Active ticker feed message matrix
-                tickerMessages: [
-                    "Direct Suez Canal lanes active. Silicon wafer pricing stable at global foundries.",
-                    "Cape of Good Hope detour activated for Seville 400MW project. Sourcing day buffer increased.",
-                    "Heliotronic Tracker shipment passed maritime QA in Ningbo harbor.",
-                    "Global copper futures up 0.4%. Bifacial array module contracts locked with zero broker margins.",
-                    "Swiss grid interconnect feasibility test completed for luxury developer in Zurich."
-                ],
+        // Calculator Logic
+        const capacitySlider = document.getElementById('capacitySlider');
+        const capacityInput = document.getElementById('capacityInput');
+        const irradianceSelect = document.getElementById('irradianceSelect');
+        
+        const outPanels = document.getElementById('outPanels');
+        const outLand = document.getElementById('outLand');
+        const outYield = document.getElementById('outYield');
+        const outCO2 = document.getElementById('outCO2');
 
-                // Architectural Showcase features
-                showcaseFeatures: [
-                    {
-                        title: "Sovereign Bifacial Solar Arrays",
-                        tag: "GW tracking field",
-                        icon: "fa-solar-panel",
-                        efficiency: "24.2% Peak Yield",
-                        impact: "8.4 GW Sourced",
-                        desc: "High-yield dual-sided crystalline trackers that capture ground albedo reflection alongside direct sun angles, maximizing energy yield density across utility-scale fields."
-                    },
-                    {
-                        title: "High-Voltage Power Stations",
-                        tag: "Substation & Inverter Sourcing",
-                        icon: "fa-bolt",
-                        efficiency: "99.1% Transmission Yield",
-                        impact: "Multi-Megawatt Ready",
-                        desc: "Fully containerized solid-state inverter systems with advanced liquid-cooling loops, engineered to withstand intense solar thermal environments."
-                    },
-                    {
-                        title: "Sovereign Logistics Pipelines",
-                        tag: "Direct Foundry Delivery",
-                        icon: "fa-ship",
-                        efficiency: "Real-time Traceability",
-                        impact: "0% Broker Intermediaries",
-                        desc: "Foundry-direct allocations complete with secure marine freight contracts, factory inspections, and strict quality assurance checks to prevent transit delays."
-                    },
-                    {
-                        title: "Estate Integration Blueprint",
-                        tag: "Luxury Housing Integration (Secondary)",
-                        icon: "fa-home",
-                        efficiency: "22.8% Nominal BIPV",
-                        impact: "Bespoke Portfolio Premium",
-                        desc: "Seamless BIPV glass facade tiles designed as a boutique craft for residential estates, ensuring high-end properties generate zero-emissions power without compromising style."
-                    }
-                ],
-
-                // ROI Calculator State
-                calc: {
-                    area: 1200,
-                    capacity: 150, // Default to utility scale (150 MWp)
-                    monthlyBill: 4500,
-                    ppaTariff: 45, 
-                    type: "utility", // Default type is 'utility'
-                    grade: "quantum", // Default to high-yield trackers
-                    route: "direct", // Default shipping route
-                    annualSavings: 0,
-                    paybackYears: 0,
-                    carbonOffset: 0,
-                    treesPlanted: 0
-                },
-
-                // Logistics details driven by lane choice
-                logisticDays: 32,
-                logisticRiskFactor: 1.0,
-
-                // Simulated Interactive Grid Nodes in Hero Section
-                solarGrid: [
-                    { active: true, voltage: 242 },
-                    { active: true, voltage: 239 },
-                    { active: false, voltage: 0 },
-                    { active: true, voltage: 241 },
-                    { active: true, voltage: 240 },
-                    { active: false, voltage: 0 },
-                    { active: true, voltage: 242 },
-                    { active: true, voltage: 239 },
-                    { active: true, voltage: 240 },
-                    { active: true, voltage: 241 },
-                    { active: false, voltage: 0 },
-                    { active: true, voltage: 243 }
-                ],
-
-                // Lead Consultation Form State
-                lead: {
-                    location: "",
-                    areaSize: "enterprise", // Default scale to enterprise (Utility GW-scale)
-                    focus: "GW-Scale Procurement", // Default goal
-                    incentives: {
-                        tax: true,
-                        bipv: true,
-                        export: true
-                    },
-                    name: "",
-                    email: "",
-                    notes: ""
-                },
-
-                toggleGridCell(index) {
-                    this.solarGrid[index].active = !this.solarGrid[index].active;
-                    this.solarGrid[index].voltage = this.solarGrid[index].active ? Math.floor(238 + Math.random() * 6) : 0;
-                    this.recalculateBoardPower();
-                },
-
-                recalculateBoardPower() {
-                    let total = 0;
-                    this.solarGrid.forEach(cell => {
-                        if (cell.active) {
-                            total += cell.voltage;
-                        }
-                    });
-                    this.simulatedPower = Math.round(total);
-                },
-
-                // ROI Calculation Formula & Dynamic Updates
-                calculateROI() {
-                    let baseSavingsRatio = 0.85; 
-                    if (this.calc.grade === 'quantum') baseSavingsRatio = 0.98;
-                    else if (this.calc.grade === 'premium') baseSavingsRatio = 0.88;
-                    else if (this.calc.grade === 'aesthetic') baseSavingsRatio = 0.78;
-
-                    // Set logistics values
-                    if (this.calc.route === 'cape') {
-                        this.logisticDays = 48;
-                        this.logisticRiskFactor = 1.25;
-                    } else if (this.calc.route === 'transpac') {
-                        this.logisticDays = 38;
-                        this.logisticRiskFactor = 1.12;
-                    } else {
-                        this.logisticDays = 28;
-                        this.logisticRiskFactor = 1.0;
-                    }
-
-                    let estCapitalIncurred = 0;
-
-                    if (this.calc.type === 'utility') {
-                        let annualGenerationMWh = this.calc.capacity * 1500;
-                        this.calc.annualSavings = Math.round(annualGenerationMWh * this.calc.ppaTariff);
-                        
-                        // Capital expenditure adjusted by logistics risks and panel grade
-                        let costPerMWp = 800000 * this.logisticRiskFactor;
-                        if (this.calc.grade === 'premium') costPerMWp = 950000 * this.logisticRiskFactor;
-                        else if (this.calc.grade === 'quantum') costPerMWp = 1100000 * this.logisticRiskFactor;
-                        
-                        estCapitalIncurred = this.calc.capacity * costPerMWp;
-                        this.calc.paybackYears = Math.max(3.8, Math.min(15, (estCapitalIncurred / this.calc.annualSavings))).toFixed(1);
-
-                        // Carbon metrics
-                        this.calc.carbonOffset = Math.round(this.calc.capacity * 700);
-                        this.calc.treesPlanted = Math.round(this.calc.carbonOffset * 45);
-                    } else {
-                        this.calc.annualSavings = Math.round(this.calc.monthlyBill * 12 * baseSavingsRatio);
-                        
-                        let costPerSqm = 180 * this.logisticRiskFactor;
-                        if (this.calc.grade === 'premium') costPerSqm = 240 * this.logisticRiskFactor;
-                        else if (this.calc.grade === 'quantum') costPerSqm = 320 * this.logisticRiskFactor;
-                        
-                        estCapitalIncurred = this.calc.area * costPerSqm;
-                        this.calc.paybackYears = Math.max(3.5, Math.min(15, (estCapitalIncurred / this.calc.annualSavings))).toFixed(1);
-
-                        this.calc.carbonOffset = Math.round(this.calc.area * 0.045);
-                        this.calc.treesPlanted = Math.round(this.calc.carbonOffset * 45);
-                    }
-
-                    // Trigger Chart re-render with fresh values
-                    updateRoiChart(this.calc.annualSavings, estCapitalIncurred, this.calc.type);
-                },
-
-                // Lead Capture Logic
-                submitLead() {
-                    if (!this.lead.name || !this.lead.email) {
-                        this.wizardError = true;
-                        return;
-                    }
-                    this.wizardError = false;
-                    this.submissionSuccess = true;
-                },
-
-                resetWizard() {
-                    this.wizardStep = 1;
-                    this.submissionSuccess = false;
-                    this.wizardError = false;
-                    this.lead.name = "";
-                    this.lead.email = "";
-                    this.lead.location = "";
-                    this.lead.notes = "";
-                },
-
-                init() {
-                    // Periodic update to simulate real-time array oscillations
-                    setInterval(() => {
-                        let randIndex = Math.floor(Math.random() * this.solarGrid.length);
-                        this.solarGrid[randIndex].voltage = this.solarGrid[randIndex].active 
-                            ? Math.floor(238 + Math.random() * 6) 
-                            : 0;
-                        this.recalculateBoardPower();
-                    }, 3000);
-
-                    // Periodic updates to simulate direct foundry stream
-                    setInterval(() => {
-                        let randMessage = this.tickerMessages[Math.floor(Math.random() * this.tickerMessages.length)];
-                        this.activeTickerMessage = randMessage;
-                    }, 5000);
-                }
-            }
+        function formatNumber(num) {
+            return Math.round(num).toLocaleString();
         }
 
-        // Chart.js instance tracking
-        let activeChart = null;
+        function calculateEstimates() {
+            let mw = parseFloat(capacityInput.value) || 0;
+            let irradiance = parseFloat(irradianceSelect.value) || 1600;
 
-        // Render & Update Function for ROI Chart
-        function updateRoiChart(annualSavings, estCapitalCost, type) {
-            const ctx = document.getElementById('roiChart');
-            if (!ctx) return;
+            // Calculations
+            // 1 MW = 1,000,000 Watts. 1,000,000 / 600W panels = 1666.66 panels per MW
+            const totalPanels = mw * (1000000 / 600);
+            
+            // Land: ~1.5 hectares per MW
+            const totalLand = mw * 1.5;
 
-            // Prepare cumulative cashflow coordinates over 20 years
-            let labels = [];
-            let data = [];
-            let currentBalance = -estCapitalCost;
+            // Yield: MW * Irradiance (hours) = MWh. / 1000 = GWh.
+            const totalYieldGWh = (mw * irradiance) / 1000;
 
-            for (let yr = 0; yr <= 20; yr += 2) {
-                labels.push('Yr ' + yr);
-                if (yr > 0) {
-                    currentBalance += (annualSavings * 2);
-                }
-                data.push(Math.round(currentBalance));
-            }
+            // CO2: ~0.4 tonnes per MWh -> 400 tonnes per GWh
+            const totalCO2 = totalYieldGWh * 400;
 
-            if (activeChart) {
-                activeChart.data.datasets[0].data = data;
-                activeChart.update();
-            } else {
-                activeChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            label: 'Cumulative Cash Balance ($)',
-                            data: data,
-                            borderColor: '#10B981',
-                            backgroundColor: 'rgba(16, 185, 129, 0.05)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.3,
-                            pointBackgroundColor: '#F59E0B',
-                            pointBorderColor: '#060A13',
-                            pointRadius: 5
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                display: false
-                            }
-                        },
-                        scales: {
-                            x: {
-                                grid: {
-                                    color: '#1e293b'
-                                },
-                                ticks: {
-                                    color: '#94a3b8',
-                                    font: {
-                                        size: 10
-                                    }
-                                }
-                            },
-                            y: {
-                                grid: {
-                                    color: '#1e293b'
-                                },
-                                ticks: {
-                                    color: '#94a3b8',
-                                    font: {
-                                        size: 10
-                                    },
-                                    callback: function(value) {
-                                        return (value >= 0 ? '+$' : '-$') + Math.abs(value).toLocaleString();
-                                    }
-                                }
-                            }
-                        }
+            // Update DOM
+            outPanels.innerText = formatNumber(totalPanels);
+            outLand.innerText = formatNumber(totalLand);
+            outYield.innerText = totalYieldGWh.toFixed(1);
+            outCO2.innerText = formatNumber(totalCO2);
+        }
+
+        // Event Listeners
+        capacitySlider.addEventListener('input', (e) => {
+            capacityInput.value = e.target.value;
+            calculateEstimates();
+        });
+
+        capacityInput.addEventListener('input', (e) => {
+            capacitySlider.value = e.target.value;
+            calculateEstimates();
+        });
+
+        irradianceSelect.addEventListener('change', calculateEstimates);
+
+        // Initial Calculation
+        calculateEstimates();
+
+        // Core Focus Tab Logic
+        const tabButtons = document.querySelectorAll('.focus-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const markers = document.querySelectorAll('.tech-marker');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+
+                // 1. Update Button States
+                tabButtons.forEach(btn => btn.setAttribute('data-active', 'false'));
+                button.setAttribute('data-active', 'true');
+
+                // 2. Hide all tab contents, show target
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(`content-${targetId}`).classList.add('active');
+
+                // 3. Update Diagram Markers
+                markers.forEach(marker => {
+                    if (marker.getAttribute('data-marker-id') === targetId) {
+                        marker.setAttribute('data-active', 'true');
+                    } else {
+                        marker.setAttribute('data-active', 'false');
                     }
                 });
-            }
-        }
-
-        // Start animation loop on load
-        window.onload = function() {
-            let appElement = document.querySelector('[x-data]');
-            if (appElement && appElement.__x) {
-                appElement.__x.$data.calculateROI();
-                appElement.__x.$data.recalculateBoardPower();
-            }
-        }
+            });
+        });
     </script>
 </body>
 </html>
